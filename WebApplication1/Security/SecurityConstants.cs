@@ -18,7 +18,7 @@ namespace WebApplication1.Security
         /// <summary>
         /// Пользователь
         /// </summary>
-        public const string CustomRole = "CUSTOMER";
+        public const string CustomerRole = "CUSTOMER";
 
         /// <summary>
         /// Логин администратора
@@ -38,13 +38,11 @@ namespace WebApplication1.Security
         /// <summary>
         /// Имя администратора
         /// </summary>
-        public const string AdminFirstname = "Администратор";
+        public const string AdminFirstName = "Администратор";
 
         /// <summary>
         /// Фамилия администратора
         /// </summary>
-        public const string AdminSurname = "Системы";
-
-        public static string СustomerRole { get; internal set; }
+        public const string AdminSurName = "Системы";
     }
 }

@@ -39,8 +39,8 @@ namespace WebApplication1.Infrastructure.Guarantors
 
                 var profile = new Employee
                 {
-                    FirstName = SecurityConstants.AdminFirstname,
-                    Surname = SecurityConstants.AdminSurname
+                    FirstName = SecurityConstants.AdminFirstName,
+                    Surname = SecurityConstants.AdminSurName
                 };
 
                 adminUser = new User
@@ -68,7 +68,7 @@ namespace WebApplication1.Infrastructure.Guarantors
             var roles = new List<IdentityRole<int>>
             {
                 new IdentityRole<int> { Name = SecurityConstants.AdminRole, NormalizedName = "ADMIN" },
-                new IdentityRole<int> { Name = SecurityConstants.СustomerRole, NormalizedName = "CUSTOMER" }
+                new IdentityRole<int> { Name = SecurityConstants.CustomerRole, NormalizedName = "CUSTOMER" }
             };
 
             foreach (var role in roles)

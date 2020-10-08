@@ -130,7 +130,7 @@ namespace WebApplication1.Controllers
                 return View(model);
             }
 
-            await _userManager.AddToRoleAsync(user, SecurityConstants.СustomerRole);
+            await _userManager.AddToRoleAsync(user, SecurityConstants.CustomerRole);
             _blogDbContext.SaveChanges();
 
             return RedirectToAction("Index", "Blog");

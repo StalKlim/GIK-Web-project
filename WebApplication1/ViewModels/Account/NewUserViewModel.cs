@@ -50,7 +50,5 @@ namespace WebApplication1.ViewModels.Account
         [Required]
         [Display(Name = "Фамилия")]
         public string Surname { get; set; }
-
-
     }
 }

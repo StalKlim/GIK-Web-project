@@ -50,6 +50,24 @@ namespace WebApplication1
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+                var guarantors = scope.ServiceProvider.GetServices<IStartupPreConditionGuarantor>();
+                try
+                {
+                    Console.WriteLine("Startup guarantors started");
+                    foreach (var guarantor in guarantors)
+                        guarantor.Ensure(scope.ServiceProvider);
+
+                    Console.WriteLine("Startup guarantors executed successfully");
+                }
+                catch (StartupPreConditionException)
+                {
+                    Console.WriteLine("Startup guarantors failed");
+                    throw;
+                }
+            }
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -73,24 +91,6 @@ namespace WebApplication1
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-
-            using (var scope = app.ApplicationServices.CreateScope())
-            {
-                var guarantors = scope.ServiceProvider.GetServices<IStartupPreConditionGuarantor>();
-                try
-                {
-                    Console.WriteLine("Startup guarantors started");
-                    foreach (var guarantor in guarantors)
-                        guarantor.Ensure(scope.ServiceProvider);
-
-                    Console.WriteLine("Startup guarantors executed successfully");
-                }
-                catch (StartupPreConditionException)
-                {
-                    Console.WriteLine("Startup guarantors failed");
-                    throw;
-                }
-            }
         }
     }
 }
