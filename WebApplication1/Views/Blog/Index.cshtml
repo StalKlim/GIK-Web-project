@@ -1,12 +1,25 @@
-﻿@*
-*@
-@{
+﻿@{
     ViewData["Title"] = "Блог";
 }
-    <div class="text-center">
-        <h1>@ViewData["Title"]</h1>
-        <hr />
-        <p class="lead">
-            Включил Razor, завёл бложик. Сейчас буду колоться бритвой.
-        </p>
-    </div>
+<div class="text-center">
+    <h1>@ViewData["Title"]</h1>
+    <hr />
+    <p class="lead">
+        Включил Razor, завёл бложик. Сейчас буду колоться бритвой.
+    </p>
+    <hr />
+    @foreach (var post in Model)
+    {
+        <div class="card">
+            <div class="card-header">
+                @post.Title
+            </div>
+            <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                    <p>@post.Data</p>
+                    <footer class="blockquote-footer">@post.Author (<cite title="Source Title">@post.Date</cite>)</footer>
+                </blockquote>
+            </div>
+        </div>
+    }
+</div>
