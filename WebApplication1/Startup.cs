@@ -32,7 +32,7 @@ namespace WebApplication1
             services.AddControllersWithViews();
 
             services.AddDbContext<BlogDbContext>(options =>
-                options.UseNpgsql("Username=postgres;Database=blog;Password=juse;Host=localhost"));
+                options.UseNpgsql("Username=postgres;Database=blog;Password=root;Host=localhost"));
 
             services.AddIdentity<User, IdentityRole<int>>(options =>
             {
