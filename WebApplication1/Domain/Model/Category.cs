@@ -9,7 +9,7 @@ namespace WebApplication1.Domain.Model
     /// <summary>
     /// Категории товаров
     /// </summary>
-    public class Categorie : Entity
+    public class Category : Entity
     {
         /// <summary>
         /// Название категории товара
