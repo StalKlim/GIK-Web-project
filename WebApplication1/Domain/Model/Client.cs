@@ -9,7 +9,7 @@ namespace WebApplication1.Domain.Model
     /// <summary>
     /// Пользователь
     /// </summary>
-    public class Account : Entity
+    public class Client : Entity
     {
         /// <summary>
         /// Имя пользователя

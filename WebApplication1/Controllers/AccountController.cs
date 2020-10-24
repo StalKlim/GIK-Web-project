@@ -110,7 +110,7 @@ namespace WebApplication1.Controllers
             if (ModelState.ErrorCount > 0)
                 return View(model);
 
-            var profile = new Account
+            var profile = new Client
             {
                 FirstName = model.FirstName,
                 Surname = model.Surname
@@ -120,7 +120,7 @@ namespace WebApplication1.Controllers
             {
                 UserName = model.UserName,
                 Email = model.Email,
-                Account = profile
+                Client = profile
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);

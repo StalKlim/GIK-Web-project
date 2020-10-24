@@ -7,7 +7,7 @@ using WebApplication1.Domain.Model.Common;
 
 namespace WebApplication1.Domain.Model
 {
-    public class Good : Entity
+    public class Product : Entity
     {
         /// <summary>
         /// Категория товара
@@ -32,16 +32,18 @@ namespace WebApplication1.Domain.Model
         /// <summary>
         /// Состояние модерации
         /// </summary>
-        public bool Aproved { get; set; }
+        public bool IsAproved { get; set; }
+
+        /// <summary>
+        /// Владелец товара
+        /// </summary>
+        public Client Owner { get; set; }
 
         /// <summary>
         /// Изображение товара
         /// </summary>
-        public Blob Image { get; set; }
+        public string FileId{ get; set; }
 
-        /// <summary>
-        /// КАК ОСУЩЕСТВИТЬ ПРИВЯЗКУ?
-        /// </summary>
-        public long Author_id { get; set; }
+
     }
 }

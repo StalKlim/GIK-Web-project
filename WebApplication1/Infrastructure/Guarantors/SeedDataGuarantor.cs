@@ -37,7 +37,7 @@ namespace WebApplication1.Infrastructure.Guarantors
             if (adminUser == null)
             {
 
-                var profile = new Account
+                var profile = new Client
                 {
                     FirstName = SecurityConstants.AdminFirstName,
                     Surname = SecurityConstants.AdminSurName
@@ -47,7 +47,7 @@ namespace WebApplication1.Infrastructure.Guarantors
                 {
                     Email = SecurityConstants.AdminEmail,
                     UserName = SecurityConstants.AdminUserName,
-                    Account = profile
+                    Client = profile
                 };
 
                 var passwordHasher = new PasswordHasher<User>();

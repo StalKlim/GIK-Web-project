@@ -14,7 +14,7 @@ namespace WebApplication1.Domain.Model
         /// <summary>
         /// Пользователь, который создал сущность
         /// </summary>
-        public Account Owner { get; set; }
+        public Client Owner { get; set; }
 
         /// <summary>
         /// Дата и время создания поста
