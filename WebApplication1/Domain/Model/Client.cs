@@ -8,6 +8,10 @@ namespace WebApplication1.Domain.Model
     public class Client : Entity
     {
         /// <summary>
+        /// Учётная запись
+        /// </summary>
+        public User User { get; set; }
+        /// <summary>
         /// Имя пользователя
         /// </summary>
         public string FirstName { get; set; }

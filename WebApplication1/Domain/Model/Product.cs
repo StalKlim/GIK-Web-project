@@ -37,9 +37,8 @@ namespace WebApplication1.Domain.Model
         /// <summary>
         /// Изображение товара
         /// </summary>
-        public string FileId
-        {
-            get; set;
-        }
+        public string FileId { get; set; }
+
+
     }
 }
