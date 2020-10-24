@@ -32,7 +32,7 @@ namespace WebApplication1.Domain.DB
         /// <summary>
         /// Пост блога
         /// </summary>
-        public DbSet<BlogPost> BlogPosts { get; private set; }
+        public DbSet<Post> BlogPosts { get; private set; }
 
         /// <inheritdoc/>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -68,7 +68,7 @@ namespace WebApplication1.Domain.DB
             #endregion
 
             #region BlogPost
-            modelBuilder.Entity<BlogPost>(b =>
+            modelBuilder.Entity<Post>(b =>
             {
                 b.ToTable("BlogPosts");
                 EntityId(b);
@@ -78,11 +78,8 @@ namespace WebApplication1.Domain.DB
                 b.Property(x => x.Title)
                     .HasColumnName("Title")
                     .IsRequired();
-                b.Property(x => x.Data)
-                    .HasColumnName("Data")
-                    .IsRequired();
-                b.HasOne(x => x.Owner)
-                    .WithMany()
+                b.Property(x => x.Text)
+                    .HasColumnName("Text")
                     .IsRequired();
             });
             #endregion

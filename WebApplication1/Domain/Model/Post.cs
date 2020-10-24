@@ -1,21 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Threading.Tasks;
 using WebApplication1.Domain.Model.Common;
 
 namespace WebApplication1.Domain.Model
 {
     /// <summary>
-    /// Пост блога
+    /// Посты сайта
     /// </summary>
-    public class BlogPost : Entity
+    public class Post : Entity
     {
-        /// <summary>
-        /// Пользователь, который создал сущность
-        /// </summary>
-        public Employee Owner { get; set; }
-
         /// <summary>
         /// Дата и время создания поста
         /// </summary>
@@ -27,8 +23,18 @@ namespace WebApplication1.Domain.Model
         public string Title { get; set; }
 
         /// <summary>
+        /// Описание поста
+        /// </summary>
+        public string Description { get; set; }
+
+        /// <summary>
+        /// Изображение к посту
+        /// </summary>
+        public Blob Image { get; set; }
+
+        /// <summary>
         /// Данные поста
         /// </summary>
-        public string Data { get; set; }
+        public string Text { get; set; }
     }
 }
