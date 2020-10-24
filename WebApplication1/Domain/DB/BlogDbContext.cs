@@ -79,8 +79,8 @@ namespace WebApplication1.Domain.DB
                 b.Property(x => x.Title)
                     .HasColumnName("Title")
                     .IsRequired();
-                b.Property(x => x.Text)
-                    .HasColumnName("Text")
+                b.Property(x => x.Data)
+                    .HasColumnName("Data")
                     .IsRequired();
             });
             #endregion
