@@ -14,6 +14,6 @@ namespace WebApplication1.Domain.Model
         /// <summary>
         /// Профиль пользователя
         /// </summary>
-        public Employee Employee { get; set; }
+        public Client Client { get; set; }
     }
 }

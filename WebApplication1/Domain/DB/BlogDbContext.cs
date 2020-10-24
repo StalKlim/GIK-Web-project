@@ -16,6 +16,7 @@ namespace WebApplication1.Domain.DB
         public BlogDbContext(DbContextOptions<BlogDbContext> options)
                : base(options)
         {
+            
             Database.EnsureCreated();
         }
 
@@ -27,7 +28,7 @@ namespace WebApplication1.Domain.DB
         /// <summary>
         /// Сотрудники
         /// </summary>
-        public DbSet<Employee> Employees { get; private set; }
+        public DbSet<Client> Accounts { get; private set; }
 
         /// <summary>
         /// Пост блога
@@ -41,16 +42,16 @@ namespace WebApplication1.Domain.DB
 
             modelBuilder.Entity<User>(x =>
             {
-                x.HasOne(y => y.Employee)
+                x.HasOne(y => y.Client)
                 .WithOne()
-                .HasForeignKey<User>("EmployeeId")
+                .HasForeignKey<User>("AccountId")
                 .IsRequired(true);
-                x.HasIndex("EmployeeId").IsUnique(true);
+                x.HasIndex("AccountId").IsUnique(true);
             });
 
             #region Employee
 
-            modelBuilder.Entity<Employee>(b =>  
+            modelBuilder.Entity<Client>(b =>  
             {
                 b.ToTable("Employees");
                 EntityId(b);
@@ -60,8 +61,8 @@ namespace WebApplication1.Domain.DB
                 b.Property(x => x.Surname)
                     .HasColumnName("Surname")
                     .IsRequired();
-                b.Property(x => x.Address)
-                    .HasColumnName("Address");
+                b.Property(x => x.Email)
+                    .HasColumnName("Email");
                 b.Ignore(x => x.FullName);
             });
 

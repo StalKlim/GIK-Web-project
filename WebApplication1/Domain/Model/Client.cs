@@ -9,7 +9,7 @@ namespace WebApplication1.Domain.Model
     /// <summary>
     /// Пользователь
     /// </summary>
-    public class Employee : Entity
+    public class Client : Entity
     {
         /// <summary>
         /// Имя пользователя
@@ -22,9 +22,9 @@ namespace WebApplication1.Domain.Model
         public string Surname { get; set; }
 
         /// <summary>
-        /// Адрес проживания пользователя
+        /// Email пользователя
         /// </summary>
-        public string Address { get; set; }
+        public string Email { get; set; }
 
         /// <summary>
         /// Возвращает полное имя пользователя

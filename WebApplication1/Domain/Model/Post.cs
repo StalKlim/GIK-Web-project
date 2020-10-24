@@ -13,6 +13,11 @@ namespace WebApplication1.Domain.Model
     public class Post : Entity
     {
         /// <summary>
+        /// Пользователь, который создал сущность
+        /// </summary>
+        public Employee Owner { get; set; }
+
+        /// <summary>
         /// Дата и время создания поста
         /// </summary>
         public DateTime Created { get; set; }
@@ -30,7 +35,7 @@ namespace WebApplication1.Domain.Model
         /// <summary>
         /// Изображение к посту
         /// </summary>
-        public Blob Image { get; set; }
+        public string FileId { get; set; }
 
         /// <summary>
         /// Данные поста
