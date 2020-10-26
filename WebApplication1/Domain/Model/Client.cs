@@ -22,11 +22,6 @@ namespace WebApplication1.Domain.Model
         public string Surname { get; set; }
 
         /// <summary>
-        /// Email пользователя
-        /// </summary>
-        public string Email { get; set; }
-
-        /// <summary>
         /// Возвращает полное имя пользователя
         /// </summary>
         public string FullName
