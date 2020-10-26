@@ -31,6 +31,6 @@ namespace WebApplication1.Domain.Model
         /// <summary>
         /// Данные поста
         /// </summary>
-        public string Text { get; set; }
+        public string Data { get; set; }
     }
 }
