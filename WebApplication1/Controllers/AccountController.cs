@@ -16,14 +16,14 @@ namespace WebApplication1.Controllers
     public class AccountController : Controller
     {
         private readonly UserManager<User> _userManager;
-        private readonly BlogDbContext _blogDbContext;
+        private readonly MarketDbContext _blogDbContext;
 
         /// <summary>
         /// Конструктор класса <see cref="AccountController"/>
         /// </summary>
         /// <param name="userManager">Менеджер пользователей</param>
         /// <param name="blogDbContext">Контекст базы данных</param>
-        public AccountController(UserManager<User> userManager, BlogDbContext blogDbContext)
+        public AccountController(UserManager<User> userManager, MarketDbContext blogDbContext)
         {
             _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
             _blogDbContext = blogDbContext ?? throw new ArgumentNullException(nameof(blogDbContext));

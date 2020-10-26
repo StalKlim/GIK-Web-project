@@ -25,7 +25,7 @@ namespace WebApplication1.Infrastructure.Guarantors
         /// </summary>
         public async Task EnsureAsync()
         {
-            var context = _serviceProvider.GetService<BlogDbContext>();
+            var context = _serviceProvider.GetService<MarketDbContext>();
             var userManager = _serviceProvider.GetService<UserManager<User>>();
             var roleManager = _serviceProvider.GetService<RoleManager<IdentityRole<int>>>();
 
@@ -63,7 +63,7 @@ namespace WebApplication1.Infrastructure.Guarantors
 
             context.SaveChanges();
         }
-        private static async Task AssertRoleExistenceAsync(RoleManager<IdentityRole<int>> roleManager, BlogDbContext context)
+        private static async Task AssertRoleExistenceAsync(RoleManager<IdentityRole<int>> roleManager, MarketDbContext context)
         {
             var roles = new List<IdentityRole<int>>
             {
