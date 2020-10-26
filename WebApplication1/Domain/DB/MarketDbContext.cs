@@ -13,7 +13,7 @@ namespace WebApplication1.Domain.DB
                : base(options)
         {
 
-            Database.EnsureCreated();
+            Database.Migrate();
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace WebApplication1.Domain.DB
             modelBuilder.Entity<User>(x =>
             {
                 x.HasOne(y => y.Client)
-                .WithOne()
+                .WithOne(x => x.User)
                 .HasForeignKey<User>("ClientId")
                 .IsRequired(true);
                 x.HasIndex("ClientId").IsUnique(true);
@@ -73,11 +73,6 @@ namespace WebApplication1.Domain.DB
                     .HasColumnName("Surname")
                     .IsRequired();
                 b.Ignore(x => x.FullName);
-                b.HasOne(y => y.User)
-                    .WithOne()
-                    .HasForeignKey<Client>("UserId")
-                    .IsRequired(true);
-                b.HasIndex("UserId").IsUnique(true);
             });
 
             #endregion
@@ -110,10 +105,10 @@ namespace WebApplication1.Domain.DB
                 b.ToTable("Carts");
                 EntityId(b);
                 b.HasOne(y => y.Product)
-                    .WithOne()
-                    .HasForeignKey<Cart>("ProductId")
-                    .IsRequired(true);
-                b.HasIndex("ProductId").IsUnique(true);
+                    .WithMany()
+                    .HasForeignKey("ProductId")
+                    .IsRequired(false);
+                b.HasIndex("ProductId").IsUnique(false);
             });
             #endregion
 
