@@ -28,10 +28,5 @@ namespace WebApplication1.Domain.Model
         {
             get => FirstName + " " + Surname;
         }
-
-        /// <summary>
-        /// Учётная запись
-        /// </summary>
-        public User User { get; set; }
     }
 }
