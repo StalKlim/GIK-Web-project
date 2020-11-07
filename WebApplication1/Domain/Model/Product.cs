@@ -42,3 +42,4 @@ namespace WebApplication1.Domain.Model
             get; set;
         }
     }
+ }
