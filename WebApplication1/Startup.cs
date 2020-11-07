@@ -31,8 +31,8 @@ namespace WebApplication1
         {
             services.AddControllersWithViews();
 
-            services.AddDbContext<BlogDbContext>(options =>
-                options.UseNpgsql("Username=postgres;Database=blog;Password=root;Host=localhost"));
+            services.AddDbContext<MarketDbContext>(options =>
+                options.UseNpgsql("Username=postgres;Database=market;Password=juse;Host=localhost"));
 
             services.AddIdentity<User, IdentityRole<int>>(options =>
             {
@@ -40,7 +40,7 @@ namespace WebApplication1
                 options.Password.RequireUppercase = false;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireDigit = false;
-            }).AddEntityFrameworkStores<BlogDbContext>();
+            }).AddEntityFrameworkStores<MarketDbContext>();
 
             var serviceProvider = services.BuildServiceProvider();
             var guarantor = new SeedDataGuarantor(serviceProvider);

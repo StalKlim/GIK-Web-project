@@ -7,7 +7,7 @@ namespace WebApplication1.Domain.Model
         /// <summary>
         /// Категория товара
         /// </summary>
-        public long Category { get; set; }
+        public Category Category { get; set; }
 
         /// <summary>
         /// Название товара
@@ -37,9 +37,8 @@ namespace WebApplication1.Domain.Model
         /// <summary>
         /// Изображение товара
         /// </summary>
-        public string FileId
-        {
-            get; set;
-        }
+        public string FileId { get; set; }
+
+
     }
  }

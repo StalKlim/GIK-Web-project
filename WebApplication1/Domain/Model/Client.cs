@@ -8,6 +8,10 @@ namespace WebApplication1.Domain.Model
     public class Client : Entity
     {
         /// <summary>
+        /// Учётная запись
+        /// </summary>
+        public User User { get; set; }
+        /// <summary>
         /// Имя пользователя
         /// </summary>
         public string FirstName { get; set; }
@@ -16,11 +20,6 @@ namespace WebApplication1.Domain.Model
         /// Фамилия пользователя
         /// </summary>
         public string Surname { get; set; }
-
-        /// <summary>
-        /// Email пользователя
-        /// </summary>
-        public string Email { get; set; }
 
         /// <summary>
         /// Возвращает полное имя пользователя
