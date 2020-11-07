@@ -1,12 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using WebApplication1.Domain.Model;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using WebApplication1.Domain.Model;
 using WebApplication1.Domain.Model.Common;
 
 namespace WebApplication1.Domain.DB
@@ -16,8 +12,8 @@ namespace WebApplication1.Domain.DB
         public BlogDbContext(DbContextOptions<BlogDbContext> options)
                : base(options)
         {
-            
-            Database.EnsureCreated();
+
+            Database.Migrate();
         }
 
         /// <summary>
@@ -50,8 +46,7 @@ namespace WebApplication1.Domain.DB
             });
 
             #region Employee
-
-            modelBuilder.Entity<Client>(b =>  
+            modelBuilder.Entity<Client>(b =>
             {
                 b.ToTable("Employees");
                 EntityId(b);
@@ -100,5 +95,5 @@ namespace WebApplication1.Domain.DB
             builder.HasKey(x => x.Id)
                 .HasAnnotation("Npgsql:Serial", true);
         }
-    }   
+    }
 }

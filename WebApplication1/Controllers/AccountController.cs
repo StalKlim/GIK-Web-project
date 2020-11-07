@@ -7,7 +7,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApplication1.Domain.DB;
 using WebApplication1.Domain.Model;
-using WebApplication1.Exceptions.Http;
 using WebApplication1.Security;
 using WebApplication1.ViewModels.Account;
 

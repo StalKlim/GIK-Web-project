@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Threading.Tasks;
 using WebApplication1.Domain.Model.Common;
 
 namespace WebApplication1.Domain.Model
@@ -15,7 +11,7 @@ namespace WebApplication1.Domain.Model
         /// <summary>
         /// Пользователь, который создал сущность
         /// </summary>
-        public Employee Owner { get; set; }
+        public Client Owner { get; set; }
 
         /// <summary>
         /// Дата и время создания поста

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Threading.Tasks;
-using WebApplication1.Domain.Model.Common;
+﻿using WebApplication1.Domain.Model.Common;
 
 namespace WebApplication1.Domain.Model
 {
@@ -42,8 +37,8 @@ namespace WebApplication1.Domain.Model
         /// <summary>
         /// Изображение товара
         /// </summary>
-        public string FileId{ get; set; }
-
-
+        public string FileId
+        {
+            get; set;
+        }
     }
-}
