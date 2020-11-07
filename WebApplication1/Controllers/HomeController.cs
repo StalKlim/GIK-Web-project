@@ -4,7 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using WebApplication1.Domain.DB;
 using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
@@ -15,22 +17,32 @@ namespace WebApplication1.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly MarketDbContext _marketDbContext;
 
         /// <summary>
         /// Конструктор класса <see cref="HomeController">
         /// </summary>
         /// <param name="logger"></param>
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, MarketDbContext marketDbContext) 
         {
             _logger = logger;
+            _marketDbContext = marketDbContext;
         }
 
         /// <summary>
         /// Возвращение представления Home возвратом Index.cshtml
         /// </summary>
         /// <returns>View</returns>
-        public IActionResult Index()
+        [HttpGet]
+        public async Task<IActionResult> Index() 
         {
+            var user = await _marketDbContext.Clients
+               .Include(x => x.User)
+               .FirstOrDefaultAsync(x => x.Id == 1);
+
+            if (user == null)
+                return NotFound();
+
             return View();
         }
 
