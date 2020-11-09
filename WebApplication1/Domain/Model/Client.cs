@@ -22,11 +22,18 @@ namespace WebApplication1.Domain.Model
         public string Surname { get; set; }
 
         /// <summary>
+        /// Корзина пользователя
+        /// </summary>
+        public Cart Cart { get; set; }
+
+        /// <summary>
         /// Возвращает полное имя пользователя
         /// </summary>
         public string FullName
         {
             get => FirstName + " " + Surname;
         }
+
+       
     }
 }
