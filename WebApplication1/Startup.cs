@@ -14,6 +14,7 @@ using WebApplication1.Domain.DB;
 using WebApplication1.Domain.Model;
 using WebApplication1.Infrastructure;
 using WebApplication1.Infrastructure.Guarantors;
+using WebApplication1.Services;
 
 namespace WebApplication1
 {
@@ -41,6 +42,8 @@ namespace WebApplication1
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireDigit = false;
             }).AddEntityFrameworkStores<MarketDbContext>();
+
+            services.AddScoped<PostServices>();
 
             var serviceProvider = services.BuildServiceProvider();
             var guarantor = new SeedDataGuarantor(serviceProvider);

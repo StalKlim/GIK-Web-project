@@ -10,6 +10,7 @@ using WebApplication1.Domain.DB;
 using WebApplication1.Domain.Model;
 using WebApplication1.DTO;
 using WebApplication1.Exceptions.Http;
+using WebApplication1.Services;
 
 namespace WebApplication1.Controllers.Api
 {
@@ -21,21 +22,23 @@ namespace WebApplication1.Controllers.Api
     public class PostController : ControllerBase
     {
         private readonly MarketDbContext _marketDbContext;
+        private readonly PostServices _postsService;
 
         /// <summary>
         /// Конструктор класса <see cref="PostController"/>
         /// </summary>
         /// <param name="marketDbContext"> Котекст базы данных</param>
-        public PostController(MarketDbContext marketDbContext)
+        public PostController(MarketDbContext marketDbContext, PostServices postsService)
         {
             _marketDbContext = marketDbContext ?? throw new ArgumentNullException(nameof(marketDbContext));
+            _postsService = postsService ?? throw new ArgumentNullException(nameof(postsService));
         }
 
         /// <summary>
         /// Получить список всех постов
         /// </summary>
         /// <returns></returns>
-        [HttpGet("all")]
+        [HttpGet]
         public ActionResult<IEnumerable<PostDetailsDTO>> GetPosts()
         {
             var response = _marketDbContext.Posts.Select(x => new PostDetailsDTO
@@ -59,14 +62,13 @@ namespace WebApplication1.Controllers.Api
         [HttpGet("{id}")]
         public async Task<ActionResult<Post>> GetPost(long id)
         {
-            var response = await _marketDbContext.Posts.FirstOrDefaultAsync(x => x.Id == id);
+            var post = await _postsService.GetPostsByIdAsync(id);
 
-            if (response == null)
-            {
+            if (post == null)
                 return NotFound();
-            }
+            
 
-            return Ok(response);
+            return Ok(post);
         }
 
         /// <summary>
