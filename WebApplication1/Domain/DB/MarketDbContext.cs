@@ -47,6 +47,7 @@ namespace WebApplication1.Domain.DB
         /// </summary>
         public DbSet<Category> Categories { get; private set; }
 
+
         /// <inheritdoc/>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
