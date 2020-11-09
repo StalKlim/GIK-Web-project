@@ -9,6 +9,12 @@ namespace WebApplication1.DTO
     {
 
         /// <summary>
+        /// Дата и время создания поста
+        /// </summary>
+
+        public DateTime Created { get; set; }
+
+        /// <summary>
         /// Заголовок поста
         /// </summary>
         public string Title { get; set; }

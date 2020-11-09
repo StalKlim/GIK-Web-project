@@ -13,7 +13,7 @@ namespace WebApplication1.Domain.DB
                : base(options)
         {
 
-            Database.Migrate();
+           // Database.Migrate();
         }
 
         /// <summary>
