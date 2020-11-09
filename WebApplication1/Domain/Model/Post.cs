@@ -9,7 +9,6 @@ namespace WebApplication1.Domain.Model
     /// </summary>
     public class Post : Entity
     {
-
         /// <summary>
         /// Дата и время создания поста
         /// </summary>

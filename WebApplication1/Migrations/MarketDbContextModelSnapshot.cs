@@ -156,11 +156,17 @@ namespace WebApplication1.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<long>("ClientId")
+                        .HasColumnType("bigint");
+
                     b.Property<long?>("ProductId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id")
                         .HasAnnotation("Npgsql:Serial", true);
+
+                    b.HasIndex("ClientId")
+                        .IsUnique();
 
                     b.HasIndex("ProductId");
 
@@ -193,6 +199,10 @@ namespace WebApplication1.Migrations
                         .HasColumnName("Id")
                         .HasColumnType("bigint")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<long?>("CartId")
+                        .IsRequired()
+                        .HasColumnType("bigint");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -421,6 +431,12 @@ namespace WebApplication1.Migrations
 
             modelBuilder.Entity("WebApplication1.Domain.Model.Cart", b =>
                 {
+                    b.HasOne("WebApplication1.Domain.Model.Client", "Client")
+                        .WithOne("Cart")
+                        .HasForeignKey("WebApplication1.Domain.Model.Cart", "ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("WebApplication1.Domain.Model.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId");
