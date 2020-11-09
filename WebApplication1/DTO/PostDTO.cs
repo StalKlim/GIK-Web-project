@@ -1,29 +1,21 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
-using WebApplication1.Domain.Model.Common;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace WebApplication1.Domain.Model
+namespace WebApplication1.DTO
 {
-    /// <summary>
-    /// Посты сайта
-    /// </summary>
-    public class Post : Entity
+    public class PostDTO
     {
-        /// <summary>
-        /// Дата и время создания поста
-        /// </summary>
-        [Required]
-        public DateTime Created { get; set; }
 
         /// <summary>
         /// Заголовок поста
         /// </summary>
-        [Required]
         public string Title { get; set; }
 
         /// <summary>
         /// Описание поста
-        [Required]
+        /// </summary>
         public string Description { get; set; }
 
         /// <summary>
@@ -34,7 +26,6 @@ namespace WebApplication1.Domain.Model
         /// <summary>
         /// Данные поста
         /// </summary>
-        [Required]
         public string Data { get; set; }
     }
 }

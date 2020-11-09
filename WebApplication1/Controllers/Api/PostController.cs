@@ -1,13 +1,15 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
+using System.Net;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using WebApplication1.Domain.DB;
 using WebApplication1.Domain.Model;
+using WebApplication1.DTO;
+using WebApplication1.Exceptions.Http;
 
 namespace WebApplication1.Controllers.Api
 {
@@ -18,29 +20,117 @@ namespace WebApplication1.Controllers.Api
     [ApiController]
     public class PostController : ControllerBase
     {
-        private readonly MarketDbContext _MarketDbContext;
+        private readonly MarketDbContext _marketDbContext;
 
         /// <summary>
         /// Конструктор класса <see cref="PostController"/>
         /// </summary>
-        /// <param name="MarketDbContext"> Котекст базы данных</param>
-        public PostController(MarketDbContext MarketDbContext)
+        /// <param name="marketDbContext"> Котекст базы данных</param>
+        public PostController(MarketDbContext marketDbContext)
         {
-            _MarketDbContext = MarketDbContext ?? throw new ArgumentNullException(nameof(MarketDbContext));
+            _marketDbContext = marketDbContext ?? throw new ArgumentNullException(nameof(marketDbContext));
         }
 
-
-        [HttpGet]
-        public IEnumerable<Post> GetPosts()
+        /// <summary>
+        /// Получить список всех постов
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("all")]
+        public ActionResult<IEnumerable<PostDetailsDTO>> GetPosts()
         {
-            return _MarketDbContext.Posts;
+            var response = _marketDbContext.Posts.Select(x => new PostDetailsDTO
+            {
+                Id = x.Id,
+                Created = x.Created,
+                Title = x.Title,
+                FileId = x.FileId,
+                Description = x.Description,
+                Data = x.Data
+            });
+
+            return Ok(response);
         }
 
-
-        [HttpGet]
-        public async Task<IActionResult> GetPost(long id)
+        /// <summary>
+        /// Получить конкретный пост
+        /// </summary>
+        /// <param name="id"> Id поста</param>
+        /// <returns></returns>
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Post>> GetPost(long id)
         {
-            /// TODO: выбор поста по id
+            var response = await _marketDbContext.Posts.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (response == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(response);
+        }
+
+        /// <summary>
+        /// Добавить пост
+        /// </summary>
+        /// <param name="data">Данные</param>
+        /// <returns>Статус</returns>
+        [HttpPost]
+        public async Task<ActionResult> AddPost(PostDTO data)
+        {
+            var Post = PostDTO2Post(data);
+
+            await _marketDbContext.AddAsync(Post);
+
+            await _marketDbContext.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// Изменить данные поста
+        /// </summary>
+        /// <param name="id">Id поста</param>
+        /// <param name="data">Данные поста</param>
+        /// <returns>Статус</returns>
+        [HttpPatch("{id}")]
+        public async Task<ActionResult> UpdatePost(long id, [FromBody] PostDTO data)
+        {
+            if (data == null)
+                throw new ArgumentNullException(nameof(data));
+
+            var post = _marketDbContext.Posts.FirstOrDefault(x => x.Id == id);
+
+            if (post == null)
+                return NotFound();
+
+            post.Title = data.Title;
+            post.Description = data.Description;
+            post.FileId = data.FileId;
+            post.Data = data.Data;
+
+            _marketDbContext.Posts.Update(post);
+
+            _marketDbContext.SaveChanges();
+
+            return Ok();
+
+        }
+
+        [HttpDelete("{id}")]
+
+
+        private Post PostDTO2Post(PostDTO data)
+        {
+            return new Post
+            {
+                Created = DateTime.Now,
+                Title = data.Title,
+                Description = data.Description,
+                FileId = data.FileId,
+                Data = data.Data
+            };
+
+
         }
     }
 }

@@ -15,17 +15,17 @@ namespace WebApplication1.Controllers
     public class AccountController : Controller
     {
         private readonly UserManager<User> _userManager;
-        private readonly MarketDbContext _MarketDbContext;
+        private readonly MarketDbContext _marketDbContext;
 
         /// <summary>
         /// Конструктор класса <see cref="AccountController"/>
         /// </summary>
         /// <param name="userManager">Менеджер пользователей</param>
-        /// <param name="blogDbContext">Контекст базы данных</param>
-        public AccountController(UserManager<User> userManager, MarketDbContext MarketDbContext)
+        /// <param name="marketDbContext">Контекст базы данных</param>
+        public AccountController(UserManager<User> userManager, MarketDbContext marketDbContext)
         {
             _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
-            _MarketDbContext = MarketDbContext ?? throw new ArgumentNullException(nameof(MarketDbContext));
+            _marketDbContext = marketDbContext ?? throw new ArgumentNullException(nameof(marketDbContext));
         }
 
         /// <summary>
@@ -130,7 +130,7 @@ namespace WebApplication1.Controllers
             }
 
             await _userManager.AddToRoleAsync(user, SecurityConstants.CustomerRole);
-            _MarketDbContext.SaveChanges();
+            _marketDbContext.SaveChanges();
 
             return RedirectToAction("Index", "Blog");
         }
