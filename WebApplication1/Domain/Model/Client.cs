@@ -1,4 +1,6 @@
-﻿using WebApplication1.Domain.Model.Common;
+﻿using System.Collections;
+using System.Collections.Generic;
+using WebApplication1.Domain.Model.Common;
 
 namespace WebApplication1.Domain.Model
 {
@@ -26,6 +28,10 @@ namespace WebApplication1.Domain.Model
         /// </summary>
         public Cart Cart { get; set; }
 
+        /// <summary>
+        /// Пост пользователя
+        /// </summary>
+        public ICollection<Post> Post { get; set; }
         /// <summary>
         /// Возвращает полное имя пользователя
         /// </summary>

@@ -52,23 +52,6 @@ namespace WebApplication1.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Posts",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Created = table.Column<DateTime>(nullable: false),
-                    Title = table.Column<string>(nullable: false),
-                    Description = table.Column<string>(nullable: false),
-                    FileId = table.Column<string>(nullable: true),
-                    Data = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Posts", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -117,6 +100,30 @@ namespace WebApplication1.Migrations
                     table.ForeignKey(
                         name: "FK_AspNetUsers_Clients_ClientId",
                         column: x => x.ClientId,
+                        principalTable: "Clients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Posts",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    OwnerId = table.Column<long>(nullable: false),
+                    Created = table.Column<DateTime>(nullable: false),
+                    Title = table.Column<string>(nullable: false),
+                    Description = table.Column<string>(nullable: false),
+                    FileId = table.Column<string>(nullable: true),
+                    Data = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Posts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Posts_Clients_OwnerId",
+                        column: x => x.OwnerId,
                         principalTable: "Clients",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -317,6 +324,11 @@ namespace WebApplication1.Migrations
                 name: "IX_Carts_ProductId",
                 table: "Carts",
                 column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Posts_OwnerId",
+                table: "Posts",
+                column: "OwnerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_CategoryId",
