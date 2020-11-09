@@ -11,5 +11,10 @@ namespace WebApplication1.Domain.Model
         /// Продукт
         /// </summary>
         public Product Product { get; set; }
+
+        /// <summary>
+        /// Пользователь
+        /// </summary>
+        public Client Client { get; set; }
     }
 }
