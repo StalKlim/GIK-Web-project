@@ -116,8 +116,25 @@ namespace WebApplication1.Controllers.Api
 
         }
 
+        /// <summary>
+        /// Удалить пост
+        /// </summary>
+        /// <param name="id">Идентификатор поста</param>
+        /// <returns>Статус</returns>
         [HttpDelete("{id}")]
+        public IActionResult DeletePost(long id)
+        {
+            var post = _marketDbContext.Posts.FirstOrDefault(x => x.Id == id);
+            if (post == null)
+                return NotFound();
 
+            _marketDbContext.Posts.Remove(post);
+
+            _marketDbContext.SaveChanges();
+
+            return Ok();
+
+        }
 
         private Post PostDTO2Post(PostDTO data)
         {
