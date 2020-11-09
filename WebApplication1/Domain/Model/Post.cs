@@ -41,5 +41,11 @@ namespace WebApplication1.Domain.Model
         /// </summary>
         [Required]
         public string Data { get; set; }
+
+        /// <summary>
+        /// Автор поста
+        /// </summary>
+        public Client Owner { get; set; }
+
     }
 }
