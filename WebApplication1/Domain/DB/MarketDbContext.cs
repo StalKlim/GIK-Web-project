@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Security.Cryptography.X509Certificates;
 using WebApplication1.Domain.Model;
 using WebApplication1.Domain.Model.Common;
 
@@ -64,6 +65,10 @@ namespace WebApplication1.Domain.DB
 
             modelBuilder.Entity<Client>(b =>
             {
+                b.HasOne(y => y.Cart)
+                .WithOne(x => x.Client)
+                .HasForeignKey<Client>("CartId")
+                .IsRequired(true);
                 b.ToTable("Clients");
                 EntityId(b);
                 b.Property(x => x.FirstName)
@@ -103,6 +108,10 @@ namespace WebApplication1.Domain.DB
             modelBuilder.Entity<Cart>(b =>
             {
                 b.ToTable("Carts");
+                b.HasOne(y => y.Client)
+                .WithOne(x => x.Cart)
+                .HasForeignKey<Cart>("ClientId")
+                .IsRequired(true);
                 EntityId(b);
                 b.HasOne(y => y.Product)
                     .WithMany()
