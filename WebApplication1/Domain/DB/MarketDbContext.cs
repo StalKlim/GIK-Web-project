@@ -83,10 +83,13 @@ namespace WebApplication1.Domain.DB
 
             #endregion
 
-            #region Posts
+            #region Post
             modelBuilder.Entity<Post>(b =>
             {
                 b.ToTable("Posts");
+                b.HasOne(y => y.Owner)
+                .WithMany(x => x.Post)
+                .IsRequired(true);
                 EntityId(b);
                 b.Property(x => x.Created)
                     .HasColumnName("Created")

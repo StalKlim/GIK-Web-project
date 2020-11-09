@@ -246,6 +246,9 @@ namespace WebApplication1.Migrations
                         .HasColumnName("FileId")
                         .HasColumnType("text");
 
+                    b.Property<long>("OwnerId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnName("Title")
@@ -253,6 +256,8 @@ namespace WebApplication1.Migrations
 
                     b.HasKey("Id")
                         .HasAnnotation("Npgsql:Serial", true);
+
+                    b.HasIndex("OwnerId");
 
                     b.ToTable("Posts");
                 });
@@ -440,6 +445,15 @@ namespace WebApplication1.Migrations
                     b.HasOne("WebApplication1.Domain.Model.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId");
+                });
+
+            modelBuilder.Entity("WebApplication1.Domain.Model.Post", b =>
+                {
+                    b.HasOne("WebApplication1.Domain.Model.Client", "Owner")
+                        .WithMany("Post")
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("WebApplication1.Domain.Model.Product", b =>
