@@ -10,6 +10,11 @@ namespace WebApplication1.Domain.Model
     public class Post : Entity
     {
         /// <summary>
+        /// Создатель поста
+        /// </summary>
+        public Client Owner { get; set; }
+
+        /// <summary>
         /// Дата и время создания поста
         /// </summary>
         [Required]
