@@ -1,15 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using WebApplication1.Domain.DB;
 using WebApplication1.Domain.Model;
 using WebApplication1.DTO;
-using WebApplication1.Exceptions.Http;
 using WebApplication1.Services;
 
 namespace WebApplication1.Controllers.Api
@@ -66,7 +62,7 @@ namespace WebApplication1.Controllers.Api
 
             if (post == null)
                 return NotFound();
-            
+
 
             return Ok(post);
         }
