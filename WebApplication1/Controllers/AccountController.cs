@@ -113,6 +113,7 @@ namespace WebApplication1.Controllers
             {
                 FirstName = model.FirstName,
                 Surname = model.Surname
+                
             };
 
             var user = new User

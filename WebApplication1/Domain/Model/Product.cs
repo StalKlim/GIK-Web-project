@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System;
 using WebApplication1.Domain.Model.Common;
 
 namespace WebApplication1.Domain.Model
@@ -39,6 +40,11 @@ namespace WebApplication1.Domain.Model
         /// Изображение товара
         /// </summary>
         public string FileId { get; set; }
+
+        /// <summary>
+        /// Дата публикации товара
+        /// </summary>
+        public DateTime Created { get; set; }
 
         public long OwnerId { get; set; }
 

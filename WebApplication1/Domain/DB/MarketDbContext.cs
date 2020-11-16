@@ -42,6 +42,16 @@ namespace WebApplication1.Domain.DB
         public DbSet<Cart> Carts { get; private set; }
 
         /// <summary>
+        /// История покупок
+        /// </summary>
+        public DbSet<PurchaseHistory> PurchaseHistory { get; private set; }
+
+        /// <summary>
+        /// История продаж
+        /// </summary>
+        public DbSet<SalesHistory> SalesHistory { get; private set; }
+
+        /// <summary>
         /// Категории товаров
         /// </summary>
         public DbSet<Category> Categories { get; private set; }
