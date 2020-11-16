@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WebApplication1.ViewModels.Post
 {
-    public class PostItemViewModelClass
+    public class PostDetailViewModel
     {
          
     }

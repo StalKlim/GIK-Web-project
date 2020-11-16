@@ -42,21 +42,13 @@ namespace WebApplication1.Domain.DB
         public DbSet<Cart> Carts { get; private set; }
 
         /// <summary>
-        /// История покупок
-        /// </summary>
-        public DbSet<PurchaseHistory> PurchaseHistory { get; private set; }
-
-        /// <summary>
-        /// История продаж
-        /// </summary>
-        public DbSet<SalesHistory> SalesHistory { get; private set; }
-
-        /// <summary>
         /// Категории товаров
         /// </summary>
         public DbSet<Category> Categories { get; private set; }
 
-        public DbSet<CartProduct> CartProducts { get; private set; }
+        public DbSet<PurchaseHistory> PurchaseHistories { get; private set; }
+
+        public DbSet<SalesHistory> SalesHistories { get; private set; }
 
 
         /// <inheritdoc/>
@@ -66,7 +58,7 @@ namespace WebApplication1.Domain.DB
 
             modelBuilder.Entity<User>(x =>
             {
-                x.HasOne<Client>(y => y.Client)
+                x.HasOne(y => y.Client)
                 .WithOne(x => x.User)
                 .HasForeignKey<User>("ClientId")
                 .IsRequired(true);
@@ -78,7 +70,7 @@ namespace WebApplication1.Domain.DB
             modelBuilder.Entity<Client>(b =>
             {
                 b.ToTable("Clients");
-                b.HasOne<Cart>(x => x.Cart)
+                b.HasOne(x => x.Cart)
                 .WithOne(y => y.Owner)
                 .HasForeignKey<Client>("CartId");
                 EntityId(b);
@@ -97,9 +89,9 @@ namespace WebApplication1.Domain.DB
             modelBuilder.Entity<Post>(b =>
             {
                 b.ToTable("Posts");
-                b.HasOne<Client>(x => x.Owner)
-                .WithMany(y => y.Post)
-                .HasForeignKey(s => s.OwnerId);
+                b.HasOne(x => x.Client)
+                .WithMany()
+                .IsRequired();
                 EntityId(b);
                 b.Property(x => x.Created)
                     .HasColumnName("Created")
@@ -122,7 +114,7 @@ namespace WebApplication1.Domain.DB
             modelBuilder.Entity<Cart>(b =>
             {
                 b.ToTable("Carts");
-                b.HasOne<Client>(x => x.Owner)
+                b.HasOne(x => x.Owner)
                 .WithOne(y => y.Cart)
                 .HasForeignKey<Cart>("OwnerId");
                 EntityId(b);
@@ -160,28 +152,40 @@ namespace WebApplication1.Domain.DB
                 b.Property(x => x.FileId)
                     .HasColumnName("FileId")
                     .IsRequired();
-                b.HasOne<Client>(x => x.Owner)
-                .WithMany(y => y.Products)
-                .HasForeignKey(s => s.OwnerId);
-                b.HasOne<Category>(x => x.Category)
+                b.HasOne(x => x.Client)
+                .WithMany()
+                .IsRequired();
+                b.HasOne(x => x.Category)
                 .WithOne(y => y.Product)
                 .HasForeignKey<Product>("CategoryId");
+                b.HasOne(x => x.Cart)
+                .WithMany()
+                .IsRequired();
             });
             #endregion
 
-            #region CartProduct
-            modelBuilder.Entity<CartProduct>(b =>
+            #region PurchaseHistory
+            modelBuilder.Entity<PurchaseHistory>(b =>
             {
-                b.HasOne<Cart>(x => x.Cart)
-                .WithMany(y => y.CartProducts)
-                .HasForeignKey(z => z.CartId);
+                b.ToTable("PurchaseHistory");
+                EntityId(b);
+                b.Property(x => x.PurchaseDate);
+                b.HasOne(x => x.Client)
+                .WithOne(y => y.PurchaseHistory)
+                .HasForeignKey<Client>("PurchaseHistoryId");
             });
+            #endregion
 
-            modelBuilder.Entity<CartProduct>(b =>
+            #region SalesHistory
+            modelBuilder.Entity<SalesHistory>(b =>
             {
-                b.HasOne<Product>(x => x.Product)
-                .WithMany(y => y.CartProducts)
-                .HasForeignKey(z => z.ProductId);
+                b.ToTable("SalesHistory");
+                EntityId(b);
+                b.Property(x => x.IsSold);
+                b.Property(x => x.SaleDate);
+                b.HasOne(x => x.Client)
+                .WithOne(y => y.SalesHistory)
+                .HasForeignKey<Client>("SalesHistoryId");
             });
             #endregion
         }

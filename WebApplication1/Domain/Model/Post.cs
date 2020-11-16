@@ -13,7 +13,7 @@ namespace WebApplication1.Domain.Model
         /// Создатель поста
         /// </summary>
         //[Required]
-        public Client Owner { get; set; }
+        public Client Client { get; set; }
 
         /// <summary>
         /// Дата и время создания поста
@@ -42,7 +42,5 @@ namespace WebApplication1.Domain.Model
         /// </summary>
         [Required]
         public string Data { get; set; }
-
-        public long OwnerId { get; set; }
     }
 }

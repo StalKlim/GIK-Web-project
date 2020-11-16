@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApplication1.Domain.Model.Common;
 
 namespace WebApplication1.Domain.Model
 {
-    public class PurchaseHistory
+    public class PurchaseHistory : Entity
     {
         /// <summary>
         /// Пользователь

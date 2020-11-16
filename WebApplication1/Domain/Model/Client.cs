@@ -8,6 +8,13 @@ namespace WebApplication1.Domain.Model
     /// </summary>
     public class Client : Entity
     {
+
+        public Client()
+        {
+            this.Cart = new Cart();
+            this.PurchaseHistory = new PurchaseHistory();
+            this.SalesHistory = new SalesHistory();
+        }
         /// <summary>
         /// Учётная запись
         /// </summary>
@@ -23,16 +30,15 @@ namespace WebApplication1.Domain.Model
         public string Surname { get; set; }
 
         /// <summary>
-        /// Пост пользователя
-        /// </summary>
-        public ICollection<Post> Post { get; set; }
-        /// <summary>
         /// Возвращает полное имя пользователя
         /// </summary>
         
-        public ICollection<Product> Products { get; set; }
-        
         public Cart Cart { get; set; }
+
+        public PurchaseHistory PurchaseHistory { get; set; }
+
+        public SalesHistory SalesHistory { get; set; }
+
         public string FullName
         {
             get => FirstName + " " + Surname;
