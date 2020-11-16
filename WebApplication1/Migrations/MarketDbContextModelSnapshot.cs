@@ -156,21 +156,38 @@ namespace WebApplication1.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<long>("ClientId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("ProductId")
+                    b.Property<long?>("OwnerId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id")
                         .HasAnnotation("Npgsql:Serial", true);
 
-                    b.HasIndex("ClientId")
+                    b.HasIndex("OwnerId")
                         .IsUnique();
+
+                    b.ToTable("Carts");
+                });
+
+            modelBuilder.Entity("WebApplication1.Domain.Model.CartProduct", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<long>("CartId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("ProductId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CartId");
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Carts");
+                    b.ToTable("CartProducts");
                 });
 
             modelBuilder.Entity("WebApplication1.Domain.Model.Category", b =>
@@ -201,7 +218,6 @@ namespace WebApplication1.Migrations
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<long?>("CartId")
-                        .IsRequired()
                         .HasColumnType("bigint");
 
                     b.Property<string>("FirstName")
@@ -270,7 +286,7 @@ namespace WebApplication1.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<long>("CategoryId")
+                    b.Property<long?>("CategoryId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Description")
@@ -305,8 +321,7 @@ namespace WebApplication1.Migrations
                     b.HasIndex("CategoryId")
                         .IsUnique();
 
-                    b.HasIndex("OwnerId")
-                        .IsUnique();
+                    b.HasIndex("OwnerId");
 
                     b.ToTable("Products");
                 });
@@ -436,15 +451,24 @@ namespace WebApplication1.Migrations
 
             modelBuilder.Entity("WebApplication1.Domain.Model.Cart", b =>
                 {
-                    b.HasOne("WebApplication1.Domain.Model.Client", "Client")
+                    b.HasOne("WebApplication1.Domain.Model.Client", "Owner")
                         .WithOne("Cart")
-                        .HasForeignKey("WebApplication1.Domain.Model.Cart", "ClientId")
+                        .HasForeignKey("WebApplication1.Domain.Model.Cart", "OwnerId");
+                });
+
+            modelBuilder.Entity("WebApplication1.Domain.Model.CartProduct", b =>
+                {
+                    b.HasOne("WebApplication1.Domain.Model.Cart", "Cart")
+                        .WithMany("CartProducts")
+                        .HasForeignKey("CartId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("WebApplication1.Domain.Model.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId");
+                        .WithMany("CartProducts")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("WebApplication1.Domain.Model.Post", b =>
@@ -459,14 +483,12 @@ namespace WebApplication1.Migrations
             modelBuilder.Entity("WebApplication1.Domain.Model.Product", b =>
                 {
                     b.HasOne("WebApplication1.Domain.Model.Category", "Category")
-                        .WithOne()
-                        .HasForeignKey("WebApplication1.Domain.Model.Product", "CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithOne("Product")
+                        .HasForeignKey("WebApplication1.Domain.Model.Product", "CategoryId");
 
                     b.HasOne("WebApplication1.Domain.Model.Client", "Owner")
-                        .WithOne()
-                        .HasForeignKey("WebApplication1.Domain.Model.Product", "OwnerId")
+                        .WithMany("Products")
+                        .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

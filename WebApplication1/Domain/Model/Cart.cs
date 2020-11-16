@@ -1,4 +1,5 @@
-﻿using WebApplication1.Domain.Model.Common;
+﻿using System.Collections.Generic;
+using WebApplication1.Domain.Model.Common;
 
 namespace WebApplication1.Domain.Model
 {
@@ -7,14 +8,8 @@ namespace WebApplication1.Domain.Model
     /// </summary>
     public class Cart : Entity
     {
-        /// <summary>
-        /// Продукт
-        /// </summary>
-        public Product Product { get; set; }
+        public Client Owner { get; set; }
 
-        /// <summary>
-        /// Пользователь
-        /// </summary>
-        public Client Client { get; set; }
+        public IList<CartProduct> CartProducts { get; set; }
     }
 }

@@ -33,7 +33,7 @@ namespace WebApplication1.Domain.Model
         /// <summary>
         /// Владелец товара
         /// </summary>
-        public Client Owner { get; set; }
+        public Client Client { get; set; }
 
         /// <summary>
         /// Изображение товара
@@ -46,5 +46,6 @@ namespace WebApplication1.Domain.Model
         public DateTime Created { get; set; }
 
 
+        public Cart Cart { get; set; }
     }
 }
