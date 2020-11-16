@@ -12,6 +12,9 @@ namespace WebApplication1.Domain.Model
         /// </summary>
         public string CategoryName { get; set; }
 
+        /// <summary>
+        /// Продукт категории
+        /// </summary>
         public Product Product { get; set; }
     }
 }

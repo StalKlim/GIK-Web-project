@@ -156,17 +156,11 @@ namespace WebApplication1.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<long?>("OwnerId")
-                        .HasColumnType("bigint");
-
                     b.Property<long?>("ProductId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id")
                         .HasAnnotation("Npgsql:Serial", true);
-
-                    b.HasIndex("OwnerId")
-                        .IsUnique();
 
                     b.HasIndex("ProductId");
 
@@ -221,6 +215,9 @@ namespace WebApplication1.Migrations
 
                     b.HasKey("Id")
                         .HasAnnotation("Npgsql:Serial", true);
+
+                    b.HasIndex("CartId")
+                        .IsUnique();
 
                     b.HasIndex("PurchaseHistoryId")
                         .IsUnique();
@@ -286,6 +283,7 @@ namespace WebApplication1.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("Created")
+                        .HasColumnName("Created")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Description")
@@ -330,16 +328,11 @@ namespace WebApplication1.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<long?>("ProductId")
-                        .HasColumnType("bigint");
-
                     b.Property<DateTime>("PurchaseDate")
                         .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id")
                         .HasAnnotation("Npgsql:Serial", true);
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("PurchaseHistory");
                 });
@@ -355,16 +348,11 @@ namespace WebApplication1.Migrations
                     b.Property<bool>("IsSold")
                         .HasColumnType("boolean");
 
-                    b.Property<long?>("ProductId")
-                        .HasColumnType("bigint");
-
                     b.Property<DateTime>("SaleDate")
                         .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id")
                         .HasAnnotation("Npgsql:Serial", true);
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("SalesHistory");
                 });
@@ -494,10 +482,6 @@ namespace WebApplication1.Migrations
 
             modelBuilder.Entity("WebApplication1.Domain.Model.Cart", b =>
                 {
-                    b.HasOne("WebApplication1.Domain.Model.Client", "Owner")
-                        .WithOne("Cart")
-                        .HasForeignKey("WebApplication1.Domain.Model.Cart", "OwnerId");
-
                     b.HasOne("WebApplication1.Domain.Model.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId");
@@ -505,6 +489,10 @@ namespace WebApplication1.Migrations
 
             modelBuilder.Entity("WebApplication1.Domain.Model.Client", b =>
                 {
+                    b.HasOne("WebApplication1.Domain.Model.Cart", "Cart")
+                        .WithOne("Client")
+                        .HasForeignKey("WebApplication1.Domain.Model.Client", "CartId");
+
                     b.HasOne("WebApplication1.Domain.Model.PurchaseHistory", "PurchaseHistory")
                         .WithOne("Client")
                         .HasForeignKey("WebApplication1.Domain.Model.Client", "PurchaseHistoryId");
@@ -540,20 +528,6 @@ namespace WebApplication1.Migrations
                         .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("WebApplication1.Domain.Model.PurchaseHistory", b =>
-                {
-                    b.HasOne("WebApplication1.Domain.Model.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId");
-                });
-
-            modelBuilder.Entity("WebApplication1.Domain.Model.SalesHistory", b =>
-                {
-                    b.HasOne("WebApplication1.Domain.Model.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId");
                 });
 
             modelBuilder.Entity("WebApplication1.Domain.Model.User", b =>
