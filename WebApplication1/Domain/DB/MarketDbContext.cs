@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System.Security.Cryptography.X509Certificates;
 using WebApplication1.Domain.Model;
 using WebApplication1.Domain.Model.Common;
 
@@ -14,7 +13,7 @@ namespace WebApplication1.Domain.DB
                : base(options)
         {
 
-           Database.Migrate();
+            Database.Migrate();
         }
 
         /// <summary>
@@ -47,6 +46,8 @@ namespace WebApplication1.Domain.DB
         /// </summary>
         public DbSet<Category> Categories { get; private set; }
 
+        public DbSet<CartProduct> CartProducts { get; private set; }
+
 
         /// <inheritdoc/>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -55,7 +56,7 @@ namespace WebApplication1.Domain.DB
 
             modelBuilder.Entity<User>(x =>
             {
-                x.HasOne(y => y.Client)
+                x.HasOne<Client>(y => y.Client)
                 .WithOne(x => x.User)
                 .HasForeignKey<User>("ClientId")
                 .IsRequired(true);
@@ -66,11 +67,10 @@ namespace WebApplication1.Domain.DB
 
             modelBuilder.Entity<Client>(b =>
             {
-                b.HasOne(y => y.Cart)
-                .WithOne(x => x.Client)
-                .HasForeignKey<Client>("CartId")
-                .IsRequired(true);
                 b.ToTable("Clients");
+                b.HasOne<Cart>(x => x.Cart)
+                .WithOne(y => y.Owner)
+                .HasForeignKey<Client>("CartId");
                 EntityId(b);
                 b.Property(x => x.FirstName)
                     .HasColumnName("FirstName")
@@ -87,9 +87,9 @@ namespace WebApplication1.Domain.DB
             modelBuilder.Entity<Post>(b =>
             {
                 b.ToTable("Posts");
-                b.HasOne(y => y.Owner)
-                .WithMany(x => x.Post)
-                .IsRequired(true);
+                b.HasOne<Client>(x => x.Owner)
+                .WithMany(y => y.Post)
+                .HasForeignKey(s => s.OwnerId);
                 EntityId(b);
                 b.Property(x => x.Created)
                     .HasColumnName("Created")
@@ -112,16 +112,10 @@ namespace WebApplication1.Domain.DB
             modelBuilder.Entity<Cart>(b =>
             {
                 b.ToTable("Carts");
-                b.HasOne(y => y.Client)
-                .WithOne(x => x.Cart)
-                .HasForeignKey<Cart>("ClientId")
-                .IsRequired(true);
+                b.HasOne<Client>(x => x.Owner)
+                .WithOne(y => y.Cart)
+                .HasForeignKey<Cart>("OwnerId");
                 EntityId(b);
-                b.HasOne(y => y.Product)
-                    .WithMany()
-                    .HasForeignKey("ProductId")
-                    .IsRequired(false);
-                b.HasIndex("ProductId").IsUnique(false);
             });
             #endregion
 
@@ -156,17 +150,28 @@ namespace WebApplication1.Domain.DB
                 b.Property(x => x.FileId)
                     .HasColumnName("FileId")
                     .IsRequired();
-                b.HasOne(y => y.Category)
-                    .WithOne()
-                    .HasForeignKey<Product>("CategoryId")
-                    .IsRequired(true);
-                b.HasIndex("CategoryId").IsUnique(true);
-                b.HasOne(y => y.Owner)
-                    .WithOne()
-                    .HasForeignKey<Product>("OwnerId")
-                    .IsRequired(true);
-                b.HasIndex("OwnerId").IsUnique(true);
+                b.HasOne<Client>(x => x.Owner)
+                .WithMany(y => y.Products)
+                .HasForeignKey(s => s.OwnerId);
+                b.HasOne<Category>(x => x.Category)
+                .WithOne(y => y.Product)
+                .HasForeignKey<Product>("CategoryId");
+            });
+            #endregion
 
+            #region CartProduct
+            modelBuilder.Entity<CartProduct>(b =>
+            {
+                b.HasOne<Cart>(x => x.Cart)
+                .WithMany(y => y.CartProducts)
+                .HasForeignKey(z => z.CartId);
+            });
+
+            modelBuilder.Entity<CartProduct>(b =>
+            {
+                b.HasOne<Product>(x => x.Product)
+                .WithMany(y => y.CartProducts)
+                .HasForeignKey(z => z.ProductId);
             });
             #endregion
         }

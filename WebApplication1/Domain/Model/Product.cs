@@ -1,4 +1,5 @@
-﻿using WebApplication1.Domain.Model.Common;
+﻿using System.Collections.Generic;
+using WebApplication1.Domain.Model.Common;
 
 namespace WebApplication1.Domain.Model
 {
@@ -39,6 +40,8 @@ namespace WebApplication1.Domain.Model
         /// </summary>
         public string FileId { get; set; }
 
+        public long OwnerId { get; set; }
 
+        public IList<CartProduct> CartProducts { get; set; }
     }
- }
+}
