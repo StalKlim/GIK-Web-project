@@ -45,7 +45,9 @@ namespace WebApplication1.Domain.Model
         /// </summary>
         public DateTime Created { get; set; }
 
-
+        /// <summary>
+        /// Корзина продукта
+        /// </summary>
         public Cart Cart { get; set; }
     }
 }

@@ -37,6 +37,33 @@ namespace WebApplication1.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PurchaseHistory",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    PurchaseDate = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PurchaseHistory", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SalesHistory",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    IsSold = table.Column<bool>(nullable: false),
+                    SaleDate = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SalesHistory", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -119,72 +146,6 @@ namespace WebApplication1.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Products",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false),
-                    CategoryId = table.Column<long>(nullable: true),
-                    Name = table.Column<string>(nullable: false),
-                    Description = table.Column<string>(nullable: false),
-                    Price = table.Column<double>(nullable: false),
-                    isAproved = table.Column<bool>(nullable: false),
-                    ClientId = table.Column<long>(nullable: false),
-                    FileId = table.Column<string>(nullable: false),
-                    Created = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Products", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Products_Categories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Categories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PurchaseHistory",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    ProductId = table.Column<long>(nullable: true),
-                    PurchaseDate = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PurchaseHistory", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_PurchaseHistory_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "SalesHistory",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    ProductId = table.Column<long>(nullable: true),
-                    IsSold = table.Column<bool>(nullable: false),
-                    SaleDate = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SalesHistory", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_SalesHistory_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Clients",
                 columns: table => new
                 {
@@ -192,9 +153,9 @@ namespace WebApplication1.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     FirstName = table.Column<string>(nullable: false),
                     Surname = table.Column<string>(nullable: false),
+                    CartId = table.Column<long>(nullable: true),
                     PurchaseHistoryId = table.Column<long>(nullable: true),
-                    SalesHistoryId = table.Column<long>(nullable: true),
-                    CartId = table.Column<long>(nullable: true)
+                    SalesHistoryId = table.Column<long>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -247,32 +208,6 @@ namespace WebApplication1.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Carts",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    OwnerId = table.Column<long>(nullable: true),
-                    ProductId = table.Column<long>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Carts", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Carts_Clients_OwnerId",
-                        column: x => x.OwnerId,
-                        principalTable: "Clients",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Carts_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Posts",
                 columns: table => new
                 {
@@ -294,6 +229,56 @@ namespace WebApplication1.Migrations
                         principalTable: "Clients",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false),
+                    CategoryId = table.Column<long>(nullable: true),
+                    Name = table.Column<string>(nullable: false),
+                    Description = table.Column<string>(nullable: false),
+                    Price = table.Column<double>(nullable: false),
+                    isAproved = table.Column<bool>(nullable: false),
+                    ClientId = table.Column<long>(nullable: false),
+                    FileId = table.Column<string>(nullable: false),
+                    Created = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Products_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Products_Clients_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "Clients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Carts",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ProductId = table.Column<long>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Carts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Carts_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -340,15 +325,15 @@ namespace WebApplication1.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Carts_OwnerId",
-                table: "Carts",
-                column: "OwnerId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Carts_ProductId",
                 table: "Carts",
                 column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Clients_CartId",
+                table: "Clients",
+                column: "CartId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Clients_PurchaseHistoryId",
@@ -377,16 +362,6 @@ namespace WebApplication1.Migrations
                 name: "IX_Products_ClientId",
                 table: "Products",
                 column: "ClientId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PurchaseHistory_ProductId",
-                table: "PurchaseHistory",
-                column: "ProductId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SalesHistory_ProductId",
-                table: "SalesHistory",
-                column: "ProductId");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_AspNetUserRoles_AspNetUsers_UserId",
@@ -421,12 +396,12 @@ namespace WebApplication1.Migrations
                 onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Products_Clients_ClientId",
-                table: "Products",
-                column: "ClientId",
-                principalTable: "Clients",
+                name: "FK_Clients_Carts_CartId",
+                table: "Clients",
+                column: "CartId",
+                principalTable: "Carts",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Products_Carts_Id",
@@ -439,10 +414,6 @@ namespace WebApplication1.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Carts_Clients_OwnerId",
-                table: "Carts");
-
             migrationBuilder.DropForeignKey(
                 name: "FK_Products_Clients_ClientId",
                 table: "Products");

@@ -56,6 +56,7 @@ namespace WebApplication1.Domain.DB
         {
             base.OnModelCreating(modelBuilder);
 
+            #region User
             modelBuilder.Entity<User>(x =>
             {
                 x.HasOne(y => y.Client)
@@ -64,14 +65,14 @@ namespace WebApplication1.Domain.DB
                 .IsRequired(true);
                 x.HasIndex("ClientId").IsUnique(true);
             });
+            #endregion
 
             #region Client
-
             modelBuilder.Entity<Client>(b =>
             {
                 b.ToTable("Clients");
                 b.HasOne(x => x.Cart)
-                .WithOne(y => y.Owner)
+                .WithOne(y => y.Client)
                 .HasForeignKey<Client>("CartId");
                 EntityId(b);
                 b.Property(x => x.FirstName)
@@ -82,7 +83,6 @@ namespace WebApplication1.Domain.DB
                     .IsRequired();
                 b.Ignore(x => x.FullName);
             });
-
             #endregion
 
             #region Post
@@ -114,9 +114,6 @@ namespace WebApplication1.Domain.DB
             modelBuilder.Entity<Cart>(b =>
             {
                 b.ToTable("Carts");
-                b.HasOne(x => x.Owner)
-                .WithOne(y => y.Cart)
-                .HasForeignKey<Cart>("OwnerId");
                 EntityId(b);
             });
             #endregion
@@ -151,6 +148,9 @@ namespace WebApplication1.Domain.DB
                     .IsRequired();
                 b.Property(x => x.FileId)
                     .HasColumnName("FileId")
+                    .IsRequired();
+                b.Property(x => x.Created)
+                    .HasColumnName("Created")
                     .IsRequired();
                 b.HasOne(x => x.Client)
                 .WithMany()
