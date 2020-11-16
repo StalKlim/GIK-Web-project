@@ -41,7 +41,5 @@ namespace WebApplication1.Domain.Model
         /// </summary>
         [Required]
         public string Data { get; set; }
-
-        public long OwnerId { get; set; }
     }
 }

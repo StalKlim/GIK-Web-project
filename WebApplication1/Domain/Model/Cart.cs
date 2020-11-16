@@ -10,6 +10,6 @@ namespace WebApplication1.Domain.Model
     {
         public Client Owner { get; set; }
 
-        public IList<CartProduct> CartProducts { get; set; }
+        public Product Product { get; set; }
     }
 }
