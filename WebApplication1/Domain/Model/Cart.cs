@@ -8,13 +8,13 @@ namespace WebApplication1.Domain.Model
     public class Cart : Entity
     {
         /// <summary>
-        /// Продукт
-        /// </summary>
-        public Product Product { get; set; }
-
-        /// <summary>
-        /// Пользователь
+        /// Пользователь корзины
         /// </summary>
         public Client Client { get; set; }
+
+        /// <summary>
+        /// Продукт корзины
+        /// </summary>
+        public Product Product { get; set; }
     }
 }

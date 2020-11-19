@@ -1,4 +1,5 @@
-﻿using WebApplication1.Domain.Model.Common;
+﻿using System;
+using WebApplication1.Domain.Model.Common;
 
 namespace WebApplication1.Domain.Model
 {
@@ -32,13 +33,21 @@ namespace WebApplication1.Domain.Model
         /// <summary>
         /// Владелец товара
         /// </summary>
-        public Client Owner { get; set; }
+        public Client Client { get; set; }
 
         /// <summary>
         /// Изображение товара
         /// </summary>
         public string FileId { get; set; }
 
+        /// <summary>
+        /// Дата публикации товара
+        /// </summary>
+        public DateTime Created { get; set; }
 
+        /// <summary>
+        /// Корзина продукта
+        /// </summary>
+        public Cart Cart { get; set; }
     }
- }
+}
