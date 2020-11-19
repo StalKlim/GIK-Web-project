@@ -12,6 +12,7 @@ namespace WebApplication1.Domain.Model
         /// <summary>
         /// Создатель поста
         /// </summary>
+        //[Required]
         public Client Owner { get; set; }
 
         /// <summary>
