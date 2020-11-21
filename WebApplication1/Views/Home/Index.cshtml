@@ -1,16 +1,34 @@
-﻿@{
-    ViewData["Title"] = "Blog";
+﻿@model WebApplication1.ViewModels.Blog.ShowAllPostViewModel
+@{
+    ViewData["Title"] = "Новости";
 }
-
 <div class="text-center">
-    <h5 class="display-4">Мир Вам и Вашему бытию!</h5>
+    <h1>@ViewData["Title"]</h1>
     <hr />
     <p class="lead">
-        Данный небольшой тестовый блог, ютящийся на локальном хосте, очень домашний и в мир
-        большого верхнего интернета никогда не выйдет, так как он боится. За сим позвольте
-        рассказать о том, что цель этого тестового блога посмотреть работу ASP.NET Core, чтобы
-        понять полезность данной вещи и в будущем успешно применять её, делая свою жизнь лучше.
-        По ходу изучения в этом блоге будут появляться записи, где я буду делиться своими открытиями
-        и впечатлениями. Ибо назвался блогом - бложь.
+        Включил Razor, завёл бложик. Сейчас буду колоться бритвой.
     </p>
+    <hr />
+    @foreach (var post in Model)
+    {
+        <div class="card">
+            <div class="card-header">
+                @post.Title
+            </div>
+            <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                    <p>@post.Data</p>
+                    <footer class="blockquote-footer">@post.Author (<cite title="Source Title">@post.Date</cite>)</footer>
+                </blockquote>
+            </div>
+        </div>
+    }
+
+
+<div class="blog-post">
+    <h2 class="blog-post-title">Title</h2>
+    <p class="blog-post-meta">date автор: <a href="#">Автор</a></p>
+
+    <p>Text</p>
+
 </div>
