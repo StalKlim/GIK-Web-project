@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Новости";
+}
+
+@model WebApplication1.ViewModels.Post.PostDetailViewModel
+    <div class="container">
+        <div class="blog-post">
+            <h2 class="blog-post-title">@Model.Title</h2>
+            <p class="blog-post-meta">@Model.Created</p>
+
+
+            <p>@Model.Description</p>
+            <p>@Model.FileId</p>
+            <p>@Model.Data</p>
+
+        </div>
+    </div>

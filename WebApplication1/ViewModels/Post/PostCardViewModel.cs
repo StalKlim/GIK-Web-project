@@ -5,6 +5,8 @@ namespace WebApplication1.ViewModels.Post
 {
     public class PostCardViewModel
     {
+        public long Id { get; set; }
+
         [Display(Name = "Изображение поста")]
         public string FileId { get; set; }
 
