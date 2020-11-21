@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using WebApplication1.Domain.Model.Common;
 
 namespace WebApplication1.Domain.Model
@@ -9,6 +8,15 @@ namespace WebApplication1.Domain.Model
     /// </summary>
     public class Client : Entity
     {
+        /// <summary>
+        /// Конструктор для создания каждому новому клиенту корзины, истории покупок и истории продаж
+        /// </summary>
+        public Client()
+        {
+            this.Cart = new Cart();
+            this.PurchaseHistory = new PurchaseHistory();
+            this.SalesHistory = new SalesHistory();
+        }
         /// <summary>
         /// Учётная запись
         /// </summary>
@@ -24,15 +32,6 @@ namespace WebApplication1.Domain.Model
         public string Surname { get; set; }
 
         /// <summary>
-        /// Корзина пользователя
-        /// </summary>
-        public Cart Cart { get; set; }
-
-        /// <summary>
-        /// Пост пользователя
-        /// </summary>
-        public ICollection<Post> Post { get; set; }
-        /// <summary>
         /// Возвращает полное имя пользователя
         /// </summary>
         public string FullName
@@ -40,6 +39,19 @@ namespace WebApplication1.Domain.Model
             get => FirstName + " " + Surname;
         }
 
-       
+        /// <summary>
+        /// Корзина пользователя
+        /// </summary>
+        public Cart Cart { get; set; }
+
+        /// <summary>
+        /// История покупок пользователя
+        /// </summary>
+        public PurchaseHistory PurchaseHistory { get; set; }
+
+        /// <summary>
+        /// История продаж пользователя
+        /// </summary>
+        public SalesHistory SalesHistory { get; set; }
     }
 }

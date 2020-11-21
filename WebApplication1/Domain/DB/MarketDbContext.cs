@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System.Security.Cryptography.X509Certificates;
 using WebApplication1.Domain.Model;
 using WebApplication1.Domain.Model.Common;
 
@@ -14,7 +13,7 @@ namespace WebApplication1.Domain.DB
                : base(options)
         {
 
-           Database.Migrate();
+            Database.Migrate();
         }
 
         /// <summary>
@@ -43,19 +42,13 @@ namespace WebApplication1.Domain.DB
         public DbSet<Cart> Carts { get; private set; }
 
         /// <summary>
-        /// История покупок
-        /// </summary>
-        public DbSet<PurchaseHistory> PurchaseHistory { get; private set; }
-
-        /// <summary>
-        /// История продаж
-        /// </summary>
-        public DbSet<SalesHistory> SalesHistory { get; private set; }
-
-        /// <summary>
         /// Категории товаров
         /// </summary>
         public DbSet<Category> Categories { get; private set; }
+
+        public DbSet<PurchaseHistory> PurchaseHistories { get; private set; }
+
+        public DbSet<SalesHistory> SalesHistories { get; private set; }
 
 
         /// <inheritdoc/>
@@ -63,6 +56,7 @@ namespace WebApplication1.Domain.DB
         {
             base.OnModelCreating(modelBuilder);
 
+            #region User
             modelBuilder.Entity<User>(x =>
             {
                 x.HasOne(y => y.Client)
@@ -71,16 +65,15 @@ namespace WebApplication1.Domain.DB
                 .IsRequired(true);
                 x.HasIndex("ClientId").IsUnique(true);
             });
+            #endregion
 
             #region Client
-
             modelBuilder.Entity<Client>(b =>
             {
-                b.HasOne(y => y.Cart)
-                .WithOne(x => x.Client)
-                .HasForeignKey<Client>("CartId")
-                .IsRequired();
                 b.ToTable("Clients");
+                b.HasOne(x => x.Cart)
+                .WithOne(y => y.Client)
+                .HasForeignKey<Client>("CartId");
                 EntityId(b);
                 b.Property(x => x.FirstName)
                     .HasColumnName("FirstName")
@@ -90,16 +83,15 @@ namespace WebApplication1.Domain.DB
                     .IsRequired();
                 b.Ignore(x => x.FullName);
             });
-
             #endregion
 
             #region Post
             modelBuilder.Entity<Post>(b =>
             {
                 b.ToTable("Posts");
-                b.HasOne(y => y.Owner)
-                .WithMany(x => x.Post)
-                .IsRequired(true);
+                b.HasOne(x => x.Client)
+                .WithMany()
+                .IsRequired();
                 EntityId(b);
                 b.Property(x => x.Created)
                     .HasColumnName("Created")
@@ -122,16 +114,7 @@ namespace WebApplication1.Domain.DB
             modelBuilder.Entity<Cart>(b =>
             {
                 b.ToTable("Carts");
-                b.HasOne(y => y.Client)
-                .WithOne(x => x.Cart)
-                .HasForeignKey<Cart>("ClientId")
-                .IsRequired(true);
                 EntityId(b);
-                b.HasOne(y => y.Product)
-                    .WithMany()
-                    .HasForeignKey("ProductId")
-                    .IsRequired(false);
-                b.HasIndex("ProductId").IsUnique(false);
             });
             #endregion
 
@@ -166,17 +149,43 @@ namespace WebApplication1.Domain.DB
                 b.Property(x => x.FileId)
                     .HasColumnName("FileId")
                     .IsRequired();
-                b.HasOne(y => y.Category)
-                    .WithOne()
-                    .HasForeignKey<Product>("CategoryId")
-                    .IsRequired(true);
-                b.HasIndex("CategoryId").IsUnique(true);
-                b.HasOne(y => y.Owner)
-                    .WithOne()
-                    .HasForeignKey<Product>("OwnerId")
-                    .IsRequired(true);
-                b.HasIndex("OwnerId").IsUnique(true);
+                b.Property(x => x.Created)
+                    .HasColumnName("Created")
+                    .IsRequired();
+                b.HasOne(x => x.Client)
+                .WithMany()
+                .IsRequired();
+                b.HasOne(x => x.Category)
+                .WithOne(y => y.Product)
+                .HasForeignKey<Product>("CategoryId");
+                b.HasOne(x => x.Cart)
+                .WithMany()
+                .IsRequired();
+            });
+            #endregion
 
+            #region PurchaseHistory
+            modelBuilder.Entity<PurchaseHistory>(b =>
+            {
+                b.ToTable("PurchaseHistory");
+                EntityId(b);
+                b.Property(x => x.PurchaseDate);
+                b.HasOne(x => x.Client)
+                .WithOne(y => y.PurchaseHistory)
+                .HasForeignKey<Client>("PurchaseHistoryId");
+            });
+            #endregion
+
+            #region SalesHistory
+            modelBuilder.Entity<SalesHistory>(b =>
+            {
+                b.ToTable("SalesHistory");
+                EntityId(b);
+                b.Property(x => x.IsSold);
+                b.Property(x => x.SaleDate);
+                b.HasOne(x => x.Client)
+                .WithOne(y => y.SalesHistory)
+                .HasForeignKey<Client>("SalesHistoryId");
             });
             #endregion
         }
