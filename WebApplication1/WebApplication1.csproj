@@ -5,10 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="ViewModels\Blog\Новая папка\**" />
-    <Content Remove="ViewModels\Blog\Новая папка\**" />
-    <EmbeddedResource Remove="ViewModels\Blog\Новая папка\**" />
-    <None Remove="ViewModels\Blog\Новая папка\**" />
+    <Compile Remove="ViewModels\Cart\**" />
+    <Compile Remove="ViewModels\Market\**" />
+    <Content Remove="ViewModels\Cart\**" />
+    <Content Remove="ViewModels\Market\**" />
+    <EmbeddedResource Remove="ViewModels\Cart\**" />
+    <EmbeddedResource Remove="ViewModels\Market\**" />
+    <None Remove="ViewModels\Cart\**" />
+    <None Remove="ViewModels\Market\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,11 +24,6 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.4" />
     <PackageReference Include="Westwind.AspNetCore.LiveReload" Version="0.2.14" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ViewModels\Market\" />
-    <Folder Include="ViewModels\Cart\" />
   </ItemGroup>
 
 </Project>
