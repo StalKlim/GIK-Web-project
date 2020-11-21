@@ -8,7 +8,8 @@
 {
     <div class="card">
         <div class="card-header">
-            @post.Title
+            @*@Html.ActionLink(post.Title, $"Details{post.Id}")*@
+            <a href="Post/Details/@post.Id">@post.Title</a>
         </div>
         <div class="card-body">
             <blockquote class="blockquote mb-0">
