@@ -6,13 +6,9 @@
 
   <ItemGroup>
     <Compile Remove="ViewModels\Cart\**" />
-    <Compile Remove="ViewModels\Market\**" />
     <Content Remove="ViewModels\Cart\**" />
-    <Content Remove="ViewModels\Market\**" />
     <EmbeddedResource Remove="ViewModels\Cart\**" />
-    <EmbeddedResource Remove="ViewModels\Market\**" />
     <None Remove="ViewModels\Cart\**" />
-    <None Remove="ViewModels\Market\**" />
   </ItemGroup>
 
   <ItemGroup>
