@@ -119,7 +119,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public async Task<ActionResult> AddPost(AddPostViewModel model)
         {
-            ///Место для вашей валидации. foxamurai@gmail.com
+
             if (!ModelState.IsValid)
                 return View(model);
 
