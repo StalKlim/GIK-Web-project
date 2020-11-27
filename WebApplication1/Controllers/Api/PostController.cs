@@ -91,7 +91,7 @@ namespace WebApplication1.Controllers.Api
         /// <param name="data">Данные поста</param>
         /// <returns>Статус</returns>
         [HttpPatch("{id}")]
-        public async Task<ActionResult> UpdatePost(long id, [FromBody] PostDTO data)
+        public IActionResult UpdatePost(long id, [FromBody] PostDTO data)
         {
             if (data == null)
                 throw new ArgumentNullException(nameof(data));
