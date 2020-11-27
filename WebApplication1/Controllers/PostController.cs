@@ -62,43 +62,7 @@ namespace WebApplication1.Controllers
                 Description = post.Description,
                 FileId = post.FileId,
                 Data = post.Data
-            };
-            
-            return View(model);
-        }
-
-        /// <summary>
-        /// Возвращает представление с добавлением поста
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        public IActionResult AddPost()
-        {
-            return View();
-        }
-
-        /// <summary>
-        /// Добавление поста
-        /// </summary>
-        /// <param name="model">Данные поста</param>
-        /// <returns>Добавляет новость</returns>
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult AddPost(NewPostViewModel model)
-        {
-            if (!ModelState.IsValid)
-                return View(model);
-
-            var client = this.GetAuthorizedUser();
-
-            var post = new Post
-            {
-                Created = DateTime.Now,
-                Title = model.Title,
-                FileId = model.FileId,
-                Description = model.Description,
-                Data = model.Data,
-                Client = client.Client
+                
             };
 
             _marketDbContext.Posts.Add(post);
@@ -136,6 +100,48 @@ namespace WebApplication1.Controllers
 
             return View();
         }
+
+        /// <summary>
+        /// Переход на страницу добавления новости
+        /// </summary>
+        /// <returns>Возвращает страницу добавления новости</returns>
+        [HttpGet]
+        public IActionResult AddPost()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// Добавление новости
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<ActionResult> AddPost(AddPostViewModel model)
+        {
+            ///Место для вашей валидации. foxamurai@gmail.com
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var client = this.GetAuthorizedUser();
+
+            var post = new Post
+            {
+                Created = DateTime.Now,
+                Title = model.Title,
+                Description = model.Description,
+                FileId = model.FileId,
+                Data = model.Data,
+                Client = client.Client
+            };
+
+            await _marketDbContext.AddAsync(post);
+
+            await _marketDbContext.SaveChangesAsync();
+
+            return View();
+        }
+
 
         /// <summary>
         /// Удаляет пост
