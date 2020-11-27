@@ -65,11 +65,7 @@ namespace WebApplication1.Controllers
                 
             };
 
-            _marketDbContext.Posts.Add(post);
-
-            _marketDbContext.SaveChanges();
-
-            return View();
+            return View(model);
         }
 
         /// <summary>
