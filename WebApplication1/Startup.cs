@@ -44,6 +44,7 @@ namespace WebApplication1
             }).AddEntityFrameworkStores<MarketDbContext>();
 
             services.AddScoped<PostServices>();
+            services.AddScoped<ProductServices>();
 
             var serviceProvider = services.BuildServiceProvider();
             var guarantor = new SeedDataGuarantor(serviceProvider);
