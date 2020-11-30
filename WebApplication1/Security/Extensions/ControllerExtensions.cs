@@ -9,9 +9,13 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using WebApplication1.Domain.Model;
+using BlogForStudents.Exceptions.Http;
 
 namespace WebApplication1.Security.Extensions
 {
+    /// <summary>
+    /// Методы расширения безопасности, применяемые в контроллерах
+    /// </summary>
     public static class ControllerExtensions
     {
         /// <summary>

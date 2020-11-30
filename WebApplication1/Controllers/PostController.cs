@@ -65,8 +65,36 @@ namespace WebApplication1.Controllers
 
             };
 
-
             return View(model);
+        }
+
+        /// <summary>
+        /// Изменить пост
+        /// </summary>
+        /// <param name="id">Id поста</param>
+        /// <param name="model">Данные поста</param>
+        /// <returns>Изменяет новость</returns>
+        [HttpPatch]
+        public async Task<ActionResult<Post>> UpdatePost(long id, PostDetailViewModel model)
+        {
+            if (model == null)
+                throw new ArgumentNullException(nameof(model));
+
+            var post = await _postServices.UpdatePostMVC(id, model);
+
+            if (post == null)
+                return NotFound();
+
+            post.Title = model.Title;
+            post.FileId = model.FileId;
+            post.Description = model.Description;
+            post.Data = model.Data;
+
+            _marketDbContext.Posts.Update(post);
+
+            _marketDbContext.SaveChanges();
+
+            return View();
         }
 
         /// <summary>
@@ -87,7 +115,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public async Task<ActionResult> AddPost(AddPostViewModel model)
         {
-            ///Место для вашей валидации. foxamurai@gmail.com
+
             if (!ModelState.IsValid)
                 return View(model);
 
@@ -111,5 +139,24 @@ namespace WebApplication1.Controllers
         }
 
 
+        /// <summary>
+        /// Удаляет пост
+        /// </summary>
+        /// <param name="id">Id поста</param>
+        /// <returns>Удаляет новость</returns>
+        [HttpDelete]
+        public IActionResult DeletePost(long id)
+        {
+            var post = _postServices.GetPostsByIdAsync(id);
+
+            if (post == null)
+                return NotFound();
+
+            _marketDbContext.Remove(post);
+
+            _marketDbContext.SaveChanges();
+
+            return View();
+        }
     }
 }
