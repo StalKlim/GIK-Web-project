@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApplication1.Domain.DB;
 using WebApplication1.Domain.Model;
+using WebApplication1.Security;
 using WebApplication1.Security.Extensions;
 using WebApplication1.Services;
 using WebApplication1.ViewModels.Product;
@@ -29,7 +30,7 @@ namespace WebApplication1.Controllers
         public IActionResult Index()
         {
             var products = _marketDbContext.Products
-                .Select(x => new ProductViewModel
+                .Select(x => new ProductDetailsViewModel
                 {
                     Id = x.Id,
                     Client = x.Client,
@@ -47,7 +48,7 @@ namespace WebApplication1.Controllers
         {
             var product = await _productServices.GetProductsById(id);
 
-            var model = new ProductViewModel
+            var model = new ProductDetailsViewModel
             {
                 Client = product.Client,
                 Created = product.Created,
@@ -69,7 +70,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public IActionResult AddProduct(NewProductViewModel model)
+        public IActionResult AddProduct(AddProductViewModel model)
         {
             if (!ModelState.IsValid)
                 return View(model);
@@ -94,7 +95,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPatch]
-        public async Task<ActionResult<Product>> UpdateProduct(long id, ProductViewModel model)
+        public async Task<ActionResult<Product>> UpdateProduct(long id, ProductDetailsViewModel model)
         {
             if (model == null)
                 throw new ArgumentNullException(nameof(model));
@@ -116,6 +117,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = SecurityConstants.AdminRole)]
         public IActionResult DeleteProduct(long id)
         {
             var product = _productServices.GetProductsById(id);

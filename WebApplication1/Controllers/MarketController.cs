@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Domain.DB;
+using WebApplication1.ViewModels.Product;
 
 namespace WebApplication1.Controllers
 {
@@ -19,12 +20,18 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            /*var product = _marketDbContext.Products
+            var products = _marketDbContext.Products
                 .Select(x => new ProductCardViewModel
                 {
-                   
-                })
-            return View();*/
+                    Name = x.Name,
+                    FileId = x.FileId,
+                    Price = x.Price,
+                    Created = x.Created
+                }).OrderByDescending(x => x.Created);
+
+            return View(products); 
+
         }
+
     }
 }

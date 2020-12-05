@@ -4,7 +4,7 @@ using WebApplication1.Domain.Model;
 
 namespace WebApplication1.ViewModels.Product
 {
-    public class ProductViewModel
+    public class ProductDetailsViewModel
     {
         public long Id { get; set; }
 

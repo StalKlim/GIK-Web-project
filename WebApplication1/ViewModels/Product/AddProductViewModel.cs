@@ -2,7 +2,7 @@
 
 namespace WebApplication1.ViewModels.Product
 {
-    public class NewProductViewModel
+    public class AddProductViewModel
     {
         [Display(Name = "Название продукта")]
         public string Name { get; set; }

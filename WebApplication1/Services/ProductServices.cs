@@ -29,7 +29,7 @@ namespace WebApplication1.Services
             return await _marketDbContext.Products.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<Product> UpdateProductMVC(long id, ProductViewModel model)
+        public async Task<Product> UpdateProductMVC(long id, ProductDetailsViewModel model)
         {
             return await _marketDbContext.Products.FirstOrDefaultAsync(x => x.Id == id);
         }
