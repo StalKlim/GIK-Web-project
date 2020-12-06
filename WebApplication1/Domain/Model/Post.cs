@@ -10,9 +10,8 @@ namespace WebApplication1.Domain.Model
     public class Post : Entity
     {
         /// <summary>
-        /// Создатель поста
+        /// Пользователь, который создал сущность
         /// </summary>
-        //[Required]
         public Client Client { get; set; }
 
         /// <summary>

@@ -20,7 +20,7 @@ namespace WebApplication1.ViewModels.Post
         /// Описание поста
         /// </summary>
         [Required]
-        [MaxLength(200, ErrorMessage = "Введите описание новости")]
+        [MaxLength(200, ErrorMessage ="Введите описание новости")]
         public string Description { get; set; }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace WebApplication1.ViewModels.Post
         /// Данные поста
         /// </summary>
         [Required]
-        [MaxLength(500, ErrorMessage = "Введите текст новости")]
+        [MaxLength(500, ErrorMessage ="Введите текст новости")]
         public string Data { get; set; }
     }
 }
