@@ -1,27 +1,56 @@
 ﻿@{
-    ViewData["Title"] = "Новости";
+        ViewData["Title"] = "Новости";
 }
 
 @model IEnumerable<WebApplication1.ViewModels.Post.PostCardViewModel>
-    
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="~/Home/Index">Главная</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Новости</li>
-        </ol>
-    </nav>
+<style>
+    .widget {
+        background: #f8f9fa;
+        padding: 15px;
+        -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+        margin-bottom: 30px;
+    }
 
-    <div class="row">
-        <div class="col-md-4">
+    .breadcrumb {
+        background: #f8f9fa;
+    }
+
+    .newsitem {
+        background: #f8f9fa;
+        padding: 15px;
+    }
+
+    .image {
+        float: right;
+        width: 220px;
+        height: 110px;
+        margin-right: 10px;
+        margin-top: -110px;
+        position: relative;
+        overflow: hidden;
+        background-color: #ebebeb;
+    }
+</style>
+<br />
+<div class="row">
+    <div class="col-md-4">
+        <div class="widget">
             <h3>Личный кабинет</h3>
             <h5>Фотография:</h5>
             <div class="img">Изображение</div>
             <p>Some shit like social links</p>
+        </div>
+
+        <div class="widget">
             <h3>Счилочки куда-нибудь</h3>
             <p>Счилочка в телеграч</p>
             <p>А это в вк, например</p>
-            <h3>Новости по месяцам</h3>
+        </div>
 
+        <div class="widget">
+            <h3>Новости по месяцам</h3>
             <ul class="nav nav-pills flex-column">
                 <li class="nav-item">
                     <a class="nav-link" href="#">Октябрь 2020</a>
@@ -38,16 +67,27 @@
             </ul>
             <hr class="d-sm-none">
         </div>
+    </div>
 
+    <div class="col-md-8">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="~/Home/Index">Главная</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Новости</li>
+            </ol>
+        </nav>
         @foreach (var post in Model)
         {
-        <div class="col-md-8">
-            <h3><a href="Post/Details/@post.Id">@post.Title</a></h3>
-            <h5>Опубликовано: @post.Created</h5>
-            <div class="img">@post.FileId</div>
-            <p>@post.Description</p>
-            <p></p>
+            <div class="newsitem">
+                <h3><a href="Post/Details/@post.Id">@post.Title</a></h3>
+                <h5>Опубликовано: @post.Created</h5>
+                <p>@post.Description</p>
+                <p></p>
+                <div class="image">
+                    <a class="img" href="Post/Details/@post.Id"><img src="@post.FileId" alt="@post.FileId" width="220" height="110"></a>
+                </div>
+            </div>
             <br>
-        </div>
-            }
+        }
     </div>
+</div>
