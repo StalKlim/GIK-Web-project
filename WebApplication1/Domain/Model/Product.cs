@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using WebApplication1.Domain.Model.Common;
 
 namespace WebApplication1.Domain.Model
@@ -45,9 +46,6 @@ namespace WebApplication1.Domain.Model
         /// </summary>
         public DateTime Created { get; set; }
 
-        /// <summary>
-        /// Корзина продукта
-        /// </summary>
-        public Cart Cart { get; set; }
+        public IList<ProductCart> ProductCarts { get; set; }
     }
 }

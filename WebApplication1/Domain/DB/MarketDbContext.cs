@@ -50,6 +50,8 @@ namespace WebApplication1.Domain.DB
 
         public DbSet<SalesHistory> SalesHistories { get; private set; }
 
+        public DbSet<ProductCart> ProductCarts { get; set; }
+
 
         /// <inheritdoc/>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -158,16 +160,13 @@ namespace WebApplication1.Domain.DB
                 b.HasOne(x => x.Category)
                 .WithOne(y => y.Product)
                 .HasForeignKey<Product>("CategoryId");
-                b.HasOne(x => x.Cart)
-                .WithMany()
-                .IsRequired();
             });
             #endregion
 
             #region PurchaseHistory
             modelBuilder.Entity<PurchaseHistory>(b =>
             {
-                b.ToTable("PurchaseHistory");
+                b.ToTable("PurchaseHistories");
                 EntityId(b);
                 b.Property(x => x.PurchaseDate);
                 b.HasOne(x => x.Client)
@@ -179,13 +178,29 @@ namespace WebApplication1.Domain.DB
             #region SalesHistory
             modelBuilder.Entity<SalesHistory>(b =>
             {
-                b.ToTable("SalesHistory");
+                b.ToTable("SalesHistories");
                 EntityId(b);
                 b.Property(x => x.IsSold);
                 b.Property(x => x.SaleDate);
                 b.HasOne(x => x.Client)
                 .WithOne(y => y.SalesHistory)
                 .HasForeignKey<Client>("SalesHistoryId");
+            });
+            #endregion
+
+            #region ProductCart
+            modelBuilder.Entity<ProductCart>(b =>
+            {
+                b.HasOne(x => x.Product)
+                .WithMany(x => x.ProductCarts)
+                .HasForeignKey(x => x.ProductId);
+            });
+
+            modelBuilder.Entity<ProductCart>(b =>
+            {
+                b.HasOne(x => x.Cart)
+                .WithMany(x => x.ProductCarts)
+                .HasForeignKey(x => x.CartId);
             });
             #endregion
         }
