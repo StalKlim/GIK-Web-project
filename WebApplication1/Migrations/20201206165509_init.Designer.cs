@@ -10,8 +10,8 @@ using WebApplication1.Domain.DB;
 namespace WebApplication1.Migrations
 {
     [DbContext(typeof(MarketDbContext))]
-    [Migration("20201205102526_python")]
-    partial class python
+    [Migration("20201206165509_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -3,36 +3,45 @@
 }
 
 @model IEnumerable<WebApplication1.ViewModels.Post.PostCardViewModel>
-<style>
-    .widget {
-        background: #f8f9fa;
-        padding: 15px;
-        -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-        border-radius: 5px;
-        margin-bottom: 30px;
-    }
+    <style>
+        .widget {
+            background: #f8f9fa;
+            padding: 15px;
+            -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
 
-    .breadcrumb {
-        background: #f8f9fa;
-    }
+        .breadcrumb {
+            background: #f8f9fa;
+        }
 
-    .newsitem {
-        background: #f8f9fa;
-        padding: 15px;
-    }
+        .newsitem {
+            background: #f8f9fa;
+            padding: 15px;
+        }
 
-    .image {
-        float: right;
-        width: 220px;
-        height: 110px;
-        margin-right: 10px;
-        margin-top: -110px;
-        position: relative;
-        overflow: hidden;
-        background-color: #ebebeb;
-    }
-</style>
+        .image {
+            float: right;
+            width: 220px;
+            height: 110px;
+            margin-right: 10px;
+            margin-top: -110px;
+            position: relative;
+            overflow: hidden;
+            background-color: #ebebeb;
+        }
+
+        .btn-primary {
+            color: #fff;
+            background-color: #1b6ec2;
+            border-color: #1861ac;
+            margin-left: 563px;
+            margin-top: -55px;
+            position: absolute;
+        }
+    </style>
 <br />
 <div class="row">
     <div class="col-md-4">
@@ -75,6 +84,7 @@
                 <li class="breadcrumb-item"><a href="~/Home/Index">Главная</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Новости</li>
             </ol>
+            <a class="btn btn-primary btn-sm" asp-area="" asp-controller="Post" asp-action="AddPost">Добавить новость</a>
         </nav>
         @foreach (var post in Model)
         {
