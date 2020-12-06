@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = @Model.Title;
+}
+
+@model WebApplication1.ViewModels.Post.PostDetailViewModel
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="~/Home/Index">Главная</a></li>
+        <li class="breadcrumb-item"><a href="~/Market/Каталог">Каталог товаров</a></li>
+        <li class="breadcrumb-item active" aria-current="page">@Model.Title</li>
+    </ol>
+</nav>
+<div class="blog-post">
+    <h2 class="blog-post-title">@Model.Title</h2>
+    <p class="blog-post-meta">@Model.Created</p>
+
+    <p>@Model.Description</p>
+    <p>@Model.FileId</p>
+    <p>@Model.Data</p>
+</div>

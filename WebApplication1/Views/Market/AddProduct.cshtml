@@ -1,35 +1,33 @@
-﻿@model WebApplication1.ViewModels.Post.AddPostViewModel
+﻿@model WebApplication1.ViewModels.Product.AddProductViewModel
 @{
-    ViewData["Title"] = "Добавить новость";
+    ViewData["Title"] = "Добавить товар";
 }
 <br />
-<h3>Добавление новости</h3>
+<h3>Добавление товара</h3>
 <form asp-action="AddPost" method="get">
     <div class="card-body">
         <div asp-validation-summary="All" class="text-danger"></div>
 
         <div class="form-group bmd-form-group">
-            <label asp-for="Title" class="bmd-label-floating"></label>
-            <input asp-for="Title" class="form-control" />
-            <span asp-validation-for="Title" class="text-danger"></span>
+            <label asp-for="Name" class="bmd-label-floating"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
         </div>
 
-        <div class="form-group bmd-form-group">
+        <div calss="form-group bmd-form-group">
             <label asp-for="Description" class="bmd-label-floating"></label>
             <input asp-for="Description" class="form-control" />
             <span asp-validation-for="Description" class="text-danger"></span>
         </div>
-
-        <div calss="form-group bmd-form-group">
-            <label asp-for="Data" class="bmd-label-floating"></label>
-            <input asp-for="Data" class="form-control" />
-            <span asp-validation-for="Data" class="text-danger"></span>
-        </div>
-
         <div calss="form-group bmd-form-group">
             <label asp-for="FileId" class="bmd-label-floating"></label>
             <input asp-for="FileId" class="form-control" />
             <span asp-validation-for="FileId" class="text-danger"></span>
+        </div>
+        <div calss="form-group bmd-form-group">
+            <label asp-for="Price" class="bmd-label-floating"></label>
+            <input asp-for="Price" class="form-control" />
+            <span asp-validation-for="Price" class="text-danger"></span>
         </div>
     </div>
 

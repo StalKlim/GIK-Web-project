@@ -1,0 +1,96 @@
+﻿@{
+    ViewData["Title"] = "Новости";
+}
+
+@model IEnumerable<WebApplication1.ViewModels.Product.ProductCardViewModel>
+<style>
+    .widget {
+        background: #f8f9fa;
+        padding: 15px;
+        -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+        margin-bottom: 30px;
+    }
+
+    .breadcrumb {
+        background: #f8f9fa;
+    }
+
+    .btn-primary {
+        color: #fff;
+        background-color: #1b6ec2;
+        border-color: #1861ac;
+        margin-left: 590px;
+        margin-top: -55px;
+        position: absolute;
+    }
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 225px);
+        justify-content: space-between;
+        grid-row-gap: 20px;
+        grid-column-gap: 5px;
+        position: relative;
+        margin-bottom: 40px;
+    }
+
+    .item {
+        height: 225px;
+        background-color: #eee;
+    }
+</style>
+<br />
+<div class="row">
+    <div class="col-md-4">
+        <div class="widget">
+            <h3>Личный кабинет</h3>
+            <h5>Фотография:</h5>
+            <div class="img">Изображение</div>
+            <p>Some shit like social links</p>
+        </div>
+
+        <div class="widget">
+            <h3>Счилочки куда-нибудь</h3>
+            <p>Счилочка в телеграч</p>
+            <p>А это в вк, например</p>
+        </div>
+
+        <div class="widget">
+            <h3>Категории товаров</h3>
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Картины маслом</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Картины творогом</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Картины молоком</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Мачтер-члассы</a>
+                </li>
+            </ul>
+            <hr class="d-sm-none">
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="~/Home/Index">Главная</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Каталог товаров</li>
+            </ol>
+            <a class="btn btn-primary btn-sm" href="~/Market/AddProduct">Добавить товар</a>
+        </nav>
+        <div class="grid">
+            @foreach (var product in Model)
+            {
+                    <div class="item">
+                        @product.Name
+                    </div>
+            }
+        </div>
+     </div>
+</div>

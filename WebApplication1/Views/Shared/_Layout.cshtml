@@ -12,26 +12,15 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="C:\Users\stalv\Source\Repos\GIK-Web-project\WebApplication1\wwwroot\css\site.css" />
     <style>
-        html {
-            position: relative;
-            min-height: 100%;
-        }
-
-        body {
-            margin-bottom: 10vh;
-        }
-
-        footer {
-            position: absolute;
-            bottom: 0;
+        .foot {
             width: 1110px;
-            height: 10vh;
-            background-color: #193441; /*высота футера будет зависеть от высоты экрана*/
+            background-color: #f8f9fa;
+            padding-left: 277px;
         }
     </style>
 </head>
 <body>
-      <div class="container">
+    <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="col">
                 <center><a class="navbar-brand" href="#"><p><img src="~/img/logo.png" alt="Чебурбашка"></p></a></center>
@@ -52,10 +41,10 @@
                         <a class="nav-link text-dark" asp-area="" asp-controller="Market" asp-action="Index">Товары</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="About" asp-action="Index">О нас</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">О нас</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Contex" asp-action="Index">Контакты</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contex">Контакты</a>
                     </li>
                 </ul>
             </div>
@@ -64,15 +53,17 @@
             </div>
         </nav>
 
-          @RenderBody()
+        @RenderBody()
 
-            <div class="footer">
-                &copy; 2020  Арт-пространство ЧЕБУРАШКА - <a asp-area="" asp-controller="Home" asp-action="Privacy">Мой двор - моя политика</a>
+        <footer class="footer text-muted">
+            <div class="foot">
+                &copy; 2020  Арт-пространство ЧЕБУРАШКА - <a asp-area="" asp-controller="Home" asp-action="Privacy">Политика конфеденциальности</a>
             </div>
-            <script src="~/lib/jquery/dist/jquery.min.js"></script>
-            <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-            <script src="~/js/site.js" asp-append-version="true"></script>
-            @RenderSection("Scripts", required: false)
-      </div>
+        </footer>
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        @RenderSection("Scripts", required: false)
+    </div>
 </body>
 </html>
