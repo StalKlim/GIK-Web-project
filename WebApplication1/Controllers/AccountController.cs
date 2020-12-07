@@ -133,7 +133,7 @@ namespace WebApplication1.Controllers
             await _userManager.AddToRoleAsync(user, SecurityConstants.CustomerRole);
             _marketDbContext.SaveChanges();
 
-            return RedirectToAction("Index", "Blog");
+            return RedirectToAction("Index", "Home");
         }
 
         /// <summary>
@@ -146,7 +146,7 @@ namespace WebApplication1.Controllers
             await signInManager.SignOutAsync();
 
 
-            return RedirectToAction("Index", "Blog");
+            return RedirectToAction("Index", "Home");
         }
 
         /// <summary>
@@ -196,7 +196,7 @@ namespace WebApplication1.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Blog");
+                return RedirectToAction("Index", "Home");
             }
         }
 
