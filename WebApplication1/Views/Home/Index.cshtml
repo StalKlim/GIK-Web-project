@@ -1,15 +1,69 @@
 ﻿@{
-    ViewData["Title"] = "Домашни    й";
+    ViewData["Title"] = "Главная";
 }
 <div class="text-center">
-    <h1>@ViewData["Title"]</h1>
+    <br />
+    <style>
+        .h3-responsive {
+            color: white;
+            text-shadow: 5px 3px 8px #000000;
+        }
+    </style>
+    <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carousel" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel" data-slide-to="1"></li>
+            <li data-target="#carousel" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+                <div class="view">
+                    <a href="~/Market/Index"><img class="d-block w-100" src="~/img/carousel_1.png" alt="Наши товары"></a>
+                    <div class="mask rgba-black-strong"></div>
+                </div>
+                <div class="carousel-caption">
+                    <h3 class="h3-responsive">Посмотрите наши товары</h3>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="view">
+                    <a href="~/Post/Index"><img class="d-block w-100" src="~/img/carousel_2.png" alt="Наши новости"></a>
+                    <div class="mask rgba-black-strong"></div>
+                </div>
+                <div class="carousel-caption">
+                    <h3 class="h3-responsive">Почитайте последние новости</h3>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="view">
+                    <a href="~/Home/About"><img class="d-block w-100" src="~/img/carousel_3.png" alt="Инфо о нас"></a>
+                    <div class="mask rgba-black-strong"></div>
+                </div>
+                <div class="carousel-caption">
+                    <h3 class="h3-responsive">Посмотрите информацию о нас</h3>
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Предыдущая</span>
+        </a>
+        <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Следующая</span>
+        </a>
+    </div>
     <hr />
-    <p class="lead">
-    <pre>Кто Чебу знал, тот его не позабудет.
-        Кто Чебу не знал, увы, шансов не будет.
-        Карлик на улыбке поломанными ушами,
-        А за его спиною диплодоки с калашами.
-        --Гена</pre>
-    </p>
-    <hr />
+    <div class="row">
+        <div class="col-sm-7">
+            <div class="newsbox">
+                <h4>Свежие новости</h4>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="prodbox">
+                <h4>Последние добавленные товары</h4>
+            </div>
+        </div>
+    </div>
 </div>

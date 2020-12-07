@@ -64,5 +64,23 @@ namespace WebApplication1.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        /// <summary>
+        /// Возвращение представления Home возвратом About.cshtml
+        /// </summary>
+        /// <returns>View</returns>
+        public IActionResult About()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// Возвращение представления Home возвратом Contex.cshtml
+        /// </summary>
+        /// <returns>View</returns>
+        public IActionResult Contex()
+        {
+            return View();
+        }
     }
 }

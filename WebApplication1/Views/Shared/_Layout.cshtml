@@ -12,8 +12,10 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="C:\Users\stalv\Source\Repos\GIK-Web-project\WebApplication1\wwwroot\css\site.css" />
     <style>
-        .footer {
-            width: 58%;
+        .foot {
+            width: 1110px;
+            background-color: #f8f9fa;
+            padding-left: 277px;
         }
     </style>
 </head>
@@ -39,10 +41,10 @@
                         <a class="nav-link text-dark" asp-area="" asp-controller="Market" asp-action="Index">Товары</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="About" asp-action="Index">О нас</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">О нас</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Contex" asp-action="Index">Контакты</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contex">Контакты</a>
                     </li>
                 </ul>
             </div>
@@ -50,18 +52,18 @@
                 <center>@await Html.PartialAsync("_LoginPartial")</center>
             </div>
         </nav>
+
+        @RenderBody()
+
+        <footer class="footer text-muted">
+            <div class="foot">
+                &copy; 2020  Арт-пространство ЧЕБУРАШКА - <a asp-area="" asp-controller="Home" asp-action="Privacy">Политика конфеденциальности</a>
+            </div>
+        </footer>
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        @RenderSection("Scripts", required: false)
     </div>
-        <div class="container">
-          @RenderBody()
-        </div>
-        <div class="container">
-            <footer class="footer text-muted bg-light border-top">
-                &copy; 2020  Арт-пространство ЧЕБУРАШКА - <a asp-area="" asp-controller="Home" asp-action="Privacy">Мой двор - моя политика</a>
-            </footer>
-            <script src="~/lib/jquery/dist/jquery.min.js"></script>
-            <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-            <script src="~/js/site.js" asp-append-version="true"></script>
-            @RenderSection("Scripts", required: false)
-        </div>
 </body>
 </html>

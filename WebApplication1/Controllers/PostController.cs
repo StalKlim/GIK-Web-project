@@ -11,7 +11,8 @@ using WebApplication1.ViewModels.Post;
 namespace WebApplication1.Controllers
 {
     /// <summary>
-    /// Контроллер для работы со страницами новостей
+    /// Контроллер для работы 
+    /// со страницами новостей
     /// </summary>
     public class PostController : Controller
     {
