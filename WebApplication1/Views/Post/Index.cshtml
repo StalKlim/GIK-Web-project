@@ -97,7 +97,7 @@
                 <li class="breadcrumb-item"><a href="~/Home/Index">Главная</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Новости</li>
             </ol>
-            <a class="btn btn-primary btn-sm" href="~/Post/AddPost">Добавить новость</a>
+            <a class="btn btn-primary btn-sm" asp-controller="Post" asp-action="AddPost">Добавить новость</a>
         </nav>
         @foreach (var post in Model)
         {

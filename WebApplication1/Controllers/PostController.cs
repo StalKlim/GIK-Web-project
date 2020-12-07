@@ -103,6 +103,7 @@ namespace WebApplication1.Controllers
         /// </summary>
         /// <returns>Возвращает страницу добавления новости</returns>
         [HttpGet]
+        [Route("Post/AddPost")]
         public IActionResult AddPost()
         {
             return View();
