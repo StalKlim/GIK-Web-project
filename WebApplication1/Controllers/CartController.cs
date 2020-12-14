@@ -2,11 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
-using System.Threading.Tasks;
 using WebApplication1.Domain.DB;
 using WebApplication1.ViewModels.Cart;
-using WebApplication1.ViewModels.Product;
-using AddProductViewModel = WebApplication1.ViewModels.Cart.AddProductViewModel;
 
 namespace WebApplication1.Controllers
 {
@@ -20,9 +17,9 @@ namespace WebApplication1.Controllers
         }
         public IActionResult Index(long ClientId)
         {
-           var cart = _marketDbContext.Carts
-                .Include(x => x.ProductCarts).ThenInclude(x => x.Product).ThenInclude(x => x.Category)
-                .FirstOrDefault(x => x.Client.Id == ClientId);
+            var cart = _marketDbContext.Carts
+                 .Include(x => x.ProductCarts).ThenInclude(x => x.Product).ThenInclude(x => x.Category)
+                 .FirstOrDefault(x => x.Client.Id == ClientId);
 
             var products = cart.ProductCarts.Select(x => x.Product);
 
@@ -37,15 +34,13 @@ namespace WebApplication1.Controllers
                 Price = x.Price
             });
 
-         
-
-            return View();
+            return View(result);
         }
 
-        public Task<ActionResult> AddProduct(AddProductViewModel model)
-        {
+        /*        public Task<ActionResult> AddProduct(AddProductViewModel model)
+                {
 
-        }
+                }*/
 
     }
 }
